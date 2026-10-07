@@ -97,6 +97,7 @@ blockquote.body{margin:0}
 .foot{background:var(--ink);color:var(--bg);overflow:hidden}
 .foot__photo{position:absolute;right:0;top:0;height:100%;width:calc(197*var(--u) + var(--ox));object-fit:cover;object-position:center top;
   -webkit-mask-image:linear-gradient(to right,transparent,#000 30%);mask-image:linear-gradient(to right,transparent,#000 30%)}
+.foot__logo{height:auto}
 .t--sm{letter-spacing:.06em}
 .form{position:relative;height:calc(170*var(--u))}
 .form label{display:block}
@@ -135,6 +136,7 @@ blockquote.body{margin:0}
   .body br{display:none}
   .hero{height:56vw}
   .site-header{height:70px}.logo{height:52px}
+  .foot__logo{width:160px}
   .foot__photo{position:static;width:100%;height:auto}
   .form{height:auto}
   .form button{position:static;margin-top:8px}

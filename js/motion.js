@@ -35,6 +35,40 @@
     Array.prototype.forEach.call(groups, function (g) { g.classList.add('is-in'); });
   }
 
+  /* --- parallasse dentro le due foto grandi (sfondo "Il dialogo tra opposti" e foto "Certi incontri") ---
+     L'immagine è più alta del riquadro (+18%, vedi css) e scorre più piano della pagina. */
+  var PAR = 0.85;          // quanto dell'extra disponibile si usa (0 = fermo, 1 = tutto)
+  var EASE0 = 0.07;        // inerzia: più basso = più morbido
+  var pars = Array.prototype.map.call(document.querySelectorAll('img[data-par]'), function (img) {
+    return { img: img, frame: img.parentElement, cur: 0, tgt: 0 };
+  });
+  var parRun = false;
+  function parTick() {
+    var moving = false;
+    pars.forEach(function (p) {
+      var d = p.tgt - p.cur;
+      if (Math.abs(d) > 0.05) { p.cur += d * EASE0; moving = true; } else { p.cur = p.tgt; }
+      p.img.style.setProperty('--pp', p.cur.toFixed(2) + 'px');
+    });
+    if (moving) { requestAnimationFrame(parTick); } else { parRun = false; }
+  }
+  function parUpdate() {
+    var vh = window.innerHeight;
+    pars.forEach(function (p) {
+      var r = p.frame.getBoundingClientRect();
+      var prog = (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2);   // +1 entra in basso, -1 esce in alto
+      prog = Math.max(-1, Math.min(1, prog));
+      p.tgt = -prog * 0.09 * r.height * PAR;
+    });
+    if (!parRun) { parRun = true; requestAnimationFrame(parTick); }
+  }
+  if (pars.length) {
+    window.addEventListener('scroll', parUpdate, { passive: true });
+    window.addEventListener('resize', parUpdate);
+    window.addEventListener('load', parUpdate);
+    parUpdate();
+  }
+
   /* --- video/immagine hero: leggero parallasse (solo desktop) --- */
   var hero = document.getElementById('hero');
   var poster = hero && hero.querySelector('.hero__poster');

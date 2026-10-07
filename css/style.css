@@ -89,13 +89,11 @@ blockquote.body{margin:0}
 .slider__dots button{width:calc(3.6*var(--u));height:calc(3.6*var(--u));padding:0;border:0;border-radius:50%;background:var(--ink);opacity:.45;cursor:pointer}
 .slider__dots button[aria-selected="true"]{opacity:1}
 
-/* ---------- certi incontri ---------- */
-.certi{background:#a09272}
-figure.certi img{position:absolute;left:0;bottom:0;width:100%;height:calc(340*var(--u))}
 
 /* ---------- footer / contatti ---------- */
 .foot{background:var(--ink);color:var(--bg);overflow:hidden}
-.foot__photo{position:absolute;right:0;top:0;height:100%;width:calc(197*var(--u));object-fit:cover}
+.foot__photo{position:absolute;right:0;top:0;height:100%;width:calc(197*var(--u));object-fit:cover;object-position:center top;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 30%);mask-image:linear-gradient(to right,transparent,#000 30%)}
 .t--sm{letter-spacing:.06em}
 .form{position:relative;height:calc(170*var(--u))}
 .form label{display:block}
@@ -130,8 +128,6 @@ figure.certi img{position:absolute;left:0;bottom:0;width:100%;height:calc(340*va
   .t--box{font-size:clamp(22px,7vw,40px)}
   .body{font-size:15px;white-space:normal}
   .body br{display:none}
-  .certi{height:auto}
-  figure.certi img{position:static;height:auto}
   .hero{height:56vw}
   .site-header{height:70px}.logo{height:52px}
   .foot__photo{position:static;width:100%;height:auto}

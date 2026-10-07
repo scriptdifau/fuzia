@@ -6,10 +6,11 @@
   if (!document.documentElement.classList.contains('js')) { return; }
 
   var SPEED = {
-    title: 0.07,                                   // titoli (stessa velocità dei testi: restano uniti)
-    text: 0.07,                                    // paragrafi
-    photos: [-0.06, 0.05, -0.1, 0.03, -0.04]       // foto, a rotazione
+    title: 0.04,                                   // titoli (stessa velocità dei testi: restano uniti)
+    text: 0.04,                                    // paragrafi
+    photos: [-0.035, 0.03, -0.06, 0.02, -0.025]    // foto, a rotazione
   };
+  var EASE = 0.06;                                 // inerzia dello scorrimento: più basso = più lento e morbido
   var MOBILE = 800;                                // sotto questa larghezza niente parallasse
 
   /* --- titoli: ogni riga in un contenitore animabile --- */
@@ -43,12 +44,12 @@
     else if (el.classList.contains('body')) { s = SPEED.text; }
     else { s = SPEED.photos[photoIdx++ % SPEED.photos.length]; }
     el.setAttribute('data-px', '');
-    items.push({ el: el, speed: s, base: 0 });
+    items.push({ el: el, speed: s, base: 0, cur: 0, tgt: 0 });
   });
 
   var hero = document.getElementById('hero');
   var poster = hero && hero.querySelector('.hero__poster');
-  var vh = window.innerHeight, ticking = false;
+  var vh = window.innerHeight;
 
   function measure() {
     vh = window.innerHeight;
@@ -61,21 +62,36 @@
     update(sy);
   }
 
+  var running = false, posterCur = 0, posterTgt = 0;
+
   function update(sy) {
-    ticking = false;
     var on = window.innerWidth > MOBILE;
     items.forEach(function (it) {
       var diff = Math.max(-vh, Math.min(vh, it.base - sy - vh / 2));
-      it.el.style.setProperty('--py', on ? (-diff * it.speed).toFixed(1) + 'px' : '0px');
+      it.tgt = on ? -diff * it.speed : 0;
+    });
+    posterTgt = on && poster ? Math.min(sy, hero.offsetHeight + 200) * 0.18 : 0;
+    if (!running) { running = true; requestAnimationFrame(tick); }
+  }
+
+  /* avvicina piano piano i valori attuali a quelli di destinazione (movimento morbido) */
+  function tick() {
+    var moving = false;
+    items.forEach(function (it) {
+      var d = it.tgt - it.cur;
+      if (Math.abs(d) > 0.05) { it.cur += d * EASE; moving = true; } else { it.cur = it.tgt; }
+      it.el.style.setProperty('--py', it.cur.toFixed(2) + 'px');
     });
     if (poster) {
-      var p = on ? Math.min(sy, hero.offsetHeight + 200) : 0;
-      poster.style.transform = 'translate3d(0,' + (p * 0.28).toFixed(1) + 'px,0) scale(1.18)';
+      var dp = posterTgt - posterCur;
+      if (Math.abs(dp) > 0.05) { posterCur += dp * EASE; moving = true; } else { posterCur = posterTgt; }
+      poster.style.transform = 'translate3d(0,' + posterCur.toFixed(2) + 'px,0) scale(1.18)';
     }
+    if (moving) { requestAnimationFrame(tick); } else { running = false; }
   }
 
   function onScroll() {
-    if (!ticking) { ticking = true; requestAnimationFrame(function () { update(window.pageYOffset); }); }
+    update(window.pageYOffset);
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });

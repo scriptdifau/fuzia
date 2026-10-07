@@ -120,32 +120,6 @@ blockquote.body{margin:0}
 .ic--linkedin{--ico:url("../assets/icons/linkedin.svg")}
 .mail{font-size:calc(1.05cqw*var(--k));letter-spacing:.1em;text-decoration:none;white-space:nowrap}
 
-/* ---------- mobile: soluzione provvisoria (il design mobile non è ancora disponibile) ---------- */
-@media (max-width:800px){
-  .grp{position:static;display:flex;flex-direction:column;gap:20px}
-  figure.bleed-l{width:auto}
-  .sec{height:auto;display:flex;flex-direction:column;gap:20px;padding:40px 16px}
-  .it,.bgband{position:static;width:auto;height:auto}
-  figure.it,.slider{height:auto}
-  figure.it img,.slider>img{height:auto}
-  .bgband{display:none}
-  .t{font-size:clamp(34px,11vw,64px);line-height:1.02}
-  .t .l{min-height:0}
-  .t--box{font-size:clamp(22px,7vw,40px)}
-  .body{font-size:15px;white-space:normal}
-  .body br{display:none}
-  .hero{height:56vw}
-  .site-header{height:70px}.logo{height:52px}
-  .foot__logo{width:160px}
-  .foot__photo{position:static;width:100%;height:auto}
-  .form{height:auto}
-  .form button{position:static;margin-top:8px}
-  .form__msg{position:static}
-  .form input:not(.hp),.form textarea{height:44px;padding-top:12px;font-size:14px}
-  .social{gap:18px}.ic{width:22px;height:22px}.mail{font-size:14px}
-  .slider__dots{position:static;margin-top:8px}.slider__dots button{width:7px;height:7px}
-}
-
 /* ---------- foto a filo pagina ---------- */
 figure.bleed-l{left:0;width:calc(var(--w)*var(--u) + var(--ox))}
 .grp{position:absolute;inset:0;pointer-events:none}
@@ -172,3 +146,54 @@ figure.bleed-l{left:0;width:calc(var(--w)*var(--u) + var(--ox))}
 .js .grp.is-in,.js .solo.is-in{opacity:1;transform:none}
 
 .hero__poster{transform-origin:center top}
+
+/* ==========================================================
+   MOBILE (fino a 800 px)
+   Stessa logica del desktop: composizione scalata, coordinate dedicate
+   (--mx --my --mw --mh, e --mfs/--mlh per i titoli) in index.html.
+   Larghezza di riferimento 390 px; sui tablet la composizione si ferma a 520 px e resta centrata.
+   ========================================================== */
+@media (max-width:800px){
+  .sec,.site-header,.hero{--um:calc(min(100cqw,520px)/390)}
+  .sec{--ox:calc((100cqw - min(100cqw,520px))/2);height:calc(var(--mhh)*var(--um))}
+
+  /* testata e video */
+  .site-header{height:calc(64*var(--um))}
+  .logo{height:calc(42*var(--um))}
+  .hero{height:calc(300*var(--um))}
+  .hero__play{top:calc(118*var(--um));width:calc(64*var(--um));height:calc(64*var(--um))}
+
+  /* posizioni */
+  .it{left:calc(var(--mx)*var(--um) + var(--ox));top:calc(var(--my)*var(--um))}
+  .it[style*="--mw"]{width:calc(var(--mw)*var(--um))}
+  figure.it,.slider{height:calc(var(--mh)*var(--um))}
+  figure.bleed-l{left:0;width:calc(var(--mw)*var(--um) + var(--ox))}
+  .bgband{top:calc(var(--my)*var(--um));height:calc(var(--mh)*var(--um))}
+
+  /* titoli */
+  .t{font-size:calc(var(--mfs)*var(--um));line-height:calc(var(--mlh)*var(--um));
+    top:calc((var(--my) - var(--mfs)*.115)*var(--um))}
+  .t--box{top:calc(var(--my)*var(--um))}
+  .t .l{min-height:calc(var(--mlh)*var(--um))}
+
+  /* testi: vanno a capo da soli */
+  .body{font-size:calc(13*var(--um));line-height:1.7;letter-spacing:.1em;white-space:normal;top:calc(var(--my)*var(--um))}
+  .d{display:none}
+
+  /* slider */
+  .slider__dots{left:calc(342*var(--um)/2 - 24*var(--um));top:calc(100% + 10*var(--um));gap:calc(6*var(--um))}
+  .slider__dots button{width:calc(6*var(--um));height:calc(6*var(--um))}
+
+  /* footer */
+  .foot__logo{height:auto}
+  .form{height:calc(270*var(--um))}
+  .form input:not(.hp),.form textarea{height:calc(46*var(--um));margin-bottom:calc(8*var(--um));padding-top:calc(16*var(--um));
+    font-size:calc(13*var(--um));border-bottom-width:1px}
+  .form button{top:calc(226*var(--um));font-size:calc(14*var(--um))}
+  .form__msg{top:calc(252*var(--um));font-size:calc(11*var(--um))}
+  .social{gap:calc(22*var(--um))}
+  .ic{width:calc(24*var(--um));height:calc(24*var(--um))}
+  .mail{font-size:calc(11*var(--um));top:calc(var(--my)*var(--um))}
+  .foot__photo{left:0;right:auto;top:calc(540*var(--um));width:100%;height:calc(440*var(--um));object-position:center 35%;
+    -webkit-mask-image:linear-gradient(to bottom,transparent,#000 30%);mask-image:linear-gradient(to bottom,transparent,#000 30%)}
+}

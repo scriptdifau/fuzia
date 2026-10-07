@@ -40,13 +40,15 @@ img{display:block;max-width:100%}
 a{color:inherit}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-.page{container-type:inline-size;max-width:1920px;margin:0 auto;background:var(--bg)}
+/* --k = scala dell'impaginazione (1 = come nel design). Più basso = tutto più piccolo. */
+.page{container-type:inline-size;max-width:1920px;margin:0 auto;background:var(--bg);--k:.85}
+@media (min-width:1700px){.page{--k:.74}}
 
 /* ---------- testata e hero ---------- */
-.site-header{--u:calc(100cqw/1096);height:calc(106*var(--u));display:flex;align-items:center;justify-content:center}
+.site-header{--u:calc(100cqw*var(--k)/1096);height:calc(106*var(--u));display:flex;align-items:center;justify-content:center}
 .logo{height:calc(78*var(--u));width:auto}
 
-.hero{--u:calc(100cqw/1096);position:relative;height:calc(573*var(--u));overflow:hidden;background:#8d9096}
+.hero{--u:calc(100cqw*var(--k)/1096);position:relative;height:calc(573*var(--u));overflow:hidden;background:#8d9096}
 .hero__poster,.hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero__video[hidden]{display:none}
 .hero__play{position:absolute;left:50%;top:calc(272*var(--u));width:calc(96*var(--u));height:calc(96*var(--u));
@@ -56,9 +58,9 @@ a{color:inherit}
 .hero.is-playing .hero__poster,.hero.is-playing .hero__play{display:none}
 
 /* ---------- sezioni a composizione libera ---------- */
-.sec{position:relative;height:calc(var(--hh)*var(--u))}
+.sec{position:relative;height:calc(var(--hh)*var(--u));--ox:calc(100cqw*(1 - var(--k))/2)}
 .it{position:absolute;margin:0;
-  left:calc(var(--x)*var(--u));
+  left:calc(var(--x)*var(--u) + var(--ox));
   top:calc((var(--y) - var(--y0))*var(--u));
   width:calc(var(--w,0)*var(--u))}
 .it:not([style*="--w"]){width:auto}
@@ -69,6 +71,7 @@ figure.it img,.slider>img{width:100%;height:100%;object-fit:cover}
 .bgband img{display:block}
 
 /* ---------- titoli ---------- */
+.t,.body{z-index:2}
 .t{font-family:var(--font-title);font-weight:400;text-transform:uppercase;white-space:nowrap;letter-spacing:.03em;
   font-size:calc(var(--fs)*var(--u));line-height:calc(var(--lh)*var(--u));
   top:calc((var(--y) - var(--y0) - var(--fs)*.115)*var(--u))}
@@ -78,7 +81,7 @@ figure.it img,.slider>img{width:100%;height:100%;object-fit:cover}
   padding:0 var(--bpr,var(--bp,.2em)) 0 var(--bpl,var(--bp,.2em));margin-left:calc(-1*var(--bpl,var(--bp,.2em)))}
 
 /* ---------- testi ---------- */
-.body{font-family:var(--font-body);font-weight:300;font-size:1.3cqw;line-height:1.6;letter-spacing:.13em;white-space:nowrap;color:var(--ink)}
+.body{font-family:var(--font-body);font-weight:300;font-size:calc(1.3cqw*var(--k));line-height:1.6;letter-spacing:.13em;white-space:nowrap;color:var(--ink)}
 .body--dark{color:#14110f}
 .body cite{font-style:italic}
 blockquote.body{margin:0}
@@ -92,20 +95,20 @@ blockquote.body{margin:0}
 
 /* ---------- footer / contatti ---------- */
 .foot{background:var(--ink);color:var(--bg);overflow:hidden}
-.foot__photo{position:absolute;right:0;top:0;height:100%;width:calc(197*var(--u));object-fit:cover;object-position:center top;
+.foot__photo{position:absolute;right:0;top:0;height:100%;width:calc(197*var(--u) + var(--ox));object-fit:cover;object-position:center top;
   -webkit-mask-image:linear-gradient(to right,transparent,#000 30%);mask-image:linear-gradient(to right,transparent,#000 30%)}
 .t--sm{letter-spacing:.06em}
 .form{position:relative;height:calc(170*var(--u))}
 .form label{display:block}
 .form input:not(.hp),.form textarea{display:block;width:100%;height:calc(32*var(--u));margin:0 0 calc(9*var(--u));padding:calc(12*var(--u)) 0 0;
   background:transparent;border:0;border-bottom:calc(.8*var(--u)) solid #6f6f6d;border-radius:0;resize:none;overflow:hidden;
-  color:var(--bg);font:300 1.2cqw/1.4 var(--font-body);letter-spacing:.14em}
+  color:var(--bg);font:300 calc(1.2cqw*var(--k))/1.4 var(--font-body);letter-spacing:.14em}
 .form ::placeholder{color:#cfcfcd;opacity:1}
 .form input:focus,.form textarea:focus{outline:none;border-bottom-color:var(--bg)}
 .form button{position:absolute;right:0;top:calc(140*var(--u));padding:calc(2*var(--u)) 0;border:0;background:none;color:var(--bg);
   font:400 calc(10*var(--u))/1 var(--font-title);letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
 .form button:hover{text-decoration:underline}
-.form__msg{position:absolute;left:0;top:calc(163*var(--u));margin:0;font-size:1cqw;letter-spacing:.08em}
+.form__msg{position:absolute;left:0;top:calc(163*var(--u));margin:0;font-size:calc(1cqw*var(--k));letter-spacing:.08em}
 .hp{position:absolute;left:-9999px;opacity:0}
 .social{display:flex;gap:calc(14*var(--u))}
 .ic{display:block;width:calc(14*var(--u));height:calc(14*var(--u));background:currentColor;
@@ -114,10 +117,12 @@ blockquote.body{margin:0}
 .ic--facebook{--ico:url("../assets/icons/facebook.svg")}
 .ic--twitter{--ico:url("../assets/icons/twitter.svg")}
 .ic--linkedin{--ico:url("../assets/icons/linkedin.svg")}
-.mail{font-size:1.05cqw;letter-spacing:.1em;text-decoration:none;white-space:nowrap}
+.mail{font-size:calc(1.05cqw*var(--k));letter-spacing:.1em;text-decoration:none;white-space:nowrap}
 
 /* ---------- mobile: soluzione provvisoria (il design mobile non è ancora disponibile) ---------- */
 @media (max-width:800px){
+  .grp{position:static;display:flex;flex-direction:column;gap:20px}
+  figure.bleed-l{width:auto}
   .sec{height:auto;display:flex;flex-direction:column;gap:20px;padding:40px 16px}
   .it,.bgband{position:static;width:auto;height:auto}
   figure.it,.slider{height:auto}
@@ -139,30 +144,29 @@ blockquote.body{margin:0}
   .slider__dots{position:static;margin-top:8px}.slider__dots button{width:7px;height:7px}
 }
 
+/* ---------- foto a filo pagina ---------- */
+figure.bleed-l{left:0;width:calc(var(--w)*var(--u) + var(--ox))}
+.grp{position:absolute;inset:0;pointer-events:none}
+.grp>*{pointer-events:auto}
+
 /* ==========================================================
    MOVIMENTO (attivo solo con JS e senza "riduci movimento")
-   Regolazioni rapide: variabili qui sotto + velocità in js/motion.js
+   Solo: titoli grandi, immagini a tutta larghezza, gruppi di foto come blocco unico.
    ========================================================== */
 :root{--ease:cubic-bezier(.19,1,.22,1);--dur:2.4s}
 
-/* titoli: ogni riga scende dall'alto dentro la sua maschera */
-.js .t .l{clip-path:inset(-.25em -.2em -.1em -.2em)}
-.js .t .rv{display:block;transform:translateY(-115%);opacity:0;
+/* titoli grandi: ogni riga scende dall'alto dentro la sua maschera */
+.js h2.t:not(.t--sm) .l{clip-path:inset(-.25em -.2em -.1em -.2em)}
+.js h2.t:not(.t--sm) .rv{display:block;transform:translateY(-115%);opacity:0;
   transition:transform var(--dur) var(--ease),opacity 1.1s ease;transition-delay:calc(var(--i,0)*.28s)}
-.js .t.is-in .rv{transform:none;opacity:1}
-.js .t--sm{opacity:0;transform:translateY(-.6em);transition:transform var(--dur) var(--ease),opacity 1.4s ease}
-.js .t--sm.is-in{opacity:1;transform:none}
+.js h2.t.is-in .rv{transform:none;opacity:1}
 
-/* testi: scendono e compaiono */
-.js .body{opacity:0;transform:translateY(-14px);transition:transform var(--dur) var(--ease) .3s,opacity 1.8s ease .3s}
-.js .body.is-in{opacity:1;transform:none}
+/* immagini a tutta larghezza: si aprono dall'alto verso il basso (nessuno zoom) */
+.js .bgband img{clip-path:inset(0 0 100% 0);transition:clip-path 2.6s var(--ease)}
+.js .bgband.is-in img{clip-path:inset(0)}
 
-/* foto: si aprono dall'alto verso il basso, con leggero zoom */
-.js figure.it,.js .slider{overflow:hidden}
-.js figure.it img,.js .slider>img{clip-path:inset(0 0 100% 0);transform:scale(1.18);
-  transition:clip-path 2.6s var(--ease),transform 3.2s var(--ease)}
-.js figure.it.is-in img,.js .slider.is-in>img{clip-path:inset(0);transform:none}
+/* gruppi di foto e foto singole: un unico blocco che compare */
+.js .grp,.js .solo{opacity:0;transform:translateY(24px);transition:opacity 1.6s ease,transform 2s var(--ease)}
+.js .grp.is-in,.js .solo.is-in{opacity:1;transform:none}
 
-/* parallasse (valore --py impostato da js/motion.js) */
-.js [data-px]{translate:0 var(--py,0px);will-change:translate}
 .hero__poster{transform-origin:center top}

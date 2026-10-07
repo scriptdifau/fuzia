@@ -89,13 +89,11 @@ blockquote.body{margin:0}
 .slider__dots button{width:calc(3.6*var(--u));height:calc(3.6*var(--u));padding:0;border:0;border-radius:50%;background:var(--ink);opacity:.45;cursor:pointer}
 .slider__dots button[aria-selected="true"]{opacity:1}
 
-/* ---------- certi incontri ---------- */
-.certi{background:#a09272}
-figure.certi img{position:absolute;left:0;bottom:0;width:100%;height:calc(340*var(--u))}
 
 /* ---------- footer / contatti ---------- */
 .foot{background:var(--ink);color:var(--bg);overflow:hidden}
-.foot__photo{position:absolute;right:0;top:0;height:100%;width:calc(197*var(--u));object-fit:cover}
+.foot__photo{position:absolute;right:0;top:0;height:100%;width:calc(197*var(--u));object-fit:cover;object-position:center top;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 30%);mask-image:linear-gradient(to right,transparent,#000 30%)}
 .t--sm{letter-spacing:.06em}
 .form{position:relative;height:calc(170*var(--u))}
 .form label{display:block}
@@ -130,8 +128,6 @@ figure.certi img{position:absolute;left:0;bottom:0;width:100%;height:calc(340*va
   .t--box{font-size:clamp(22px,7vw,40px)}
   .body{font-size:15px;white-space:normal}
   .body br{display:none}
-  .certi{height:auto}
-  figure.certi img{position:static;height:auto}
   .hero{height:56vw}
   .site-header{height:70px}.logo{height:52px}
   .foot__photo{position:static;width:100%;height:auto}
@@ -142,3 +138,31 @@ figure.certi img{position:absolute;left:0;bottom:0;width:100%;height:calc(340*va
   .social{gap:18px}.ic{width:22px;height:22px}.mail{font-size:14px}
   .slider__dots{position:static;margin-top:8px}.slider__dots button{width:7px;height:7px}
 }
+
+/* ==========================================================
+   MOVIMENTO (attivo solo con JS e senza "riduci movimento")
+   Regolazioni rapide: variabili qui sotto + velocità in js/motion.js
+   ========================================================== */
+:root{--ease:cubic-bezier(.19,1,.22,1);--dur:1.2s}
+
+/* titoli: ogni riga scende dall'alto dentro la sua maschera */
+.js .t .l{clip-path:inset(-.25em -.2em -.1em -.2em)}
+.js .t .rv{display:block;transform:translateY(-115%);opacity:0;
+  transition:transform var(--dur) var(--ease),opacity .6s ease;transition-delay:calc(var(--i,0)*.14s)}
+.js .t.is-in .rv{transform:none;opacity:1}
+.js .t--sm{opacity:0;transform:translateY(-.6em);transition:transform var(--dur) var(--ease),opacity .8s ease}
+.js .t--sm.is-in{opacity:1;transform:none}
+
+/* testi: scendono e compaiono */
+.js .body{opacity:0;transform:translateY(-14px);transition:transform var(--dur) var(--ease) .15s,opacity 1s ease .15s}
+.js .body.is-in{opacity:1;transform:none}
+
+/* foto: si aprono dall'alto verso il basso, con leggero zoom */
+.js figure.it,.js .slider{overflow:hidden}
+.js figure.it img,.js .slider>img{clip-path:inset(0 0 100% 0);transform:scale(1.18);
+  transition:clip-path 1.4s var(--ease),transform 1.9s var(--ease)}
+.js figure.it.is-in img,.js .slider.is-in>img{clip-path:inset(0);transform:none}
+
+/* parallasse (valore --py impostato da js/motion.js) */
+.js [data-px]{translate:0 var(--py,0px);will-change:translate}
+.hero__poster{transform-origin:center top}

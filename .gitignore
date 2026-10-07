@@ -1,0 +1,12 @@
+# File di design e sorgenti pesanti: restano sul tuo computer, non vanno su GitHub (limite 100 MB per file)
+*.psd
+*.psb
+*.ai
+*.indd
+*.sketch
+*.fig
+*.zip
+*.mov
+.DS_Store
+Thumbs.db
+node_modules/

@@ -17,23 +17,42 @@
   /* --- comparsa allo scorrimento --- */
   var single = document.querySelectorAll('h2.t:not(.t--sm), .bgband, .solo');
   var groups = document.querySelectorAll('.grp');
+  /* Elementi da far comparire: i singoli e i figli dei gruppi (un gruppo compare in blocco, appena ne entra una parte) */
+  var pending = Array.prototype.slice.call(single);
+  Array.prototype.forEach.call(groups, function (g) {
+    Array.prototype.forEach.call(g.children, function (c) { pending.push(c); });
+  });
+  function reveal(el) { (el.closest('.grp') || el).classList.add('is-in'); }
+
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (!en.isIntersecting) { return; }
-        var t = en.target.closest('.grp') || en.target;   // un gruppo compare in blocco, appena ne entra una parte
-        t.classList.add('is-in');
+        reveal(en.target);
         io.unobserve(en.target);
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
-    Array.prototype.forEach.call(single, function (t) { io.observe(t); });
-    Array.prototype.forEach.call(groups, function (g) {
-      Array.prototype.forEach.call(g.children, function (c) { io.observe(c); });
-    });
-  } else {
-    Array.prototype.forEach.call(single, function (t) { t.classList.add('is-in'); });
-    Array.prototype.forEach.call(groups, function (g) { g.classList.add('is-in'); });
+    pending.forEach(function (t) { io.observe(t); });
   }
+
+  /* Rete di sicurezza: se l'osservatore non scatta (alcuni telefoni/browser), controlla comunque ad ogni scorrimento
+     quali elementi sono entrati nello schermo, così nulla resta nascosto. */
+  function inView(el) {
+    var r = el.getBoundingClientRect(), vh = window.innerHeight;
+    var vis = Math.min(r.bottom, vh * 0.94) - Math.max(r.top, 0);
+    return vis > 0 && vis >= Math.min(r.height * 0.15, 120);
+  }
+  function sweep() {
+    pending = pending.filter(function (el) {
+      if (el.closest('.grp') ? el.closest('.grp').classList.contains('is-in') : el.classList.contains('is-in')) { return false; }
+      if (inView(el)) { reveal(el); return false; }
+      return true;
+    });
+  }
+  window.addEventListener('scroll', sweep, { passive: true });
+  window.addEventListener('resize', sweep);
+  window.addEventListener('load', sweep);
+  sweep();
 
   /* --- parallasse dentro le due foto grandi (sfondo "Il dialogo tra opposti" e foto "Certi incontri") ---
      L'immagine è più alta del riquadro (+18%, vedi css) e scorre più piano della pagina. */

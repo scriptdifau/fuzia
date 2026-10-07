@@ -46,6 +46,15 @@
     });
     function stop() { clearInterval(timer); }
     function restart() { stop(); if (slides.length > 1 && !reduce) { timer = setInterval(function () { show(current + 1); }, 5500); } }
+    // clic sulla foto = foto successiva; su telefono si scorre con un dito (destra/sinistra)
+    img.addEventListener('click', function () { show(current + 1); restart(); });
+    var x0 = null;
+    slider.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    slider.addEventListener('touchend', function (e) {
+      if (x0 === null) { return; }
+      var dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 40) { show(current + (dx < 0 ? 1 : -1)); restart(); }
+    }, { passive: true });
     slider.addEventListener('mouseenter', stop);
     slider.addEventListener('mouseleave', restart);
     markDots(); restart();

@@ -16,17 +16,27 @@
     });
   }
 
-  /* ---- Slider foto (sezione "La forza della presenza") ---- */
+  /* ---- Slider foto (sezione "La forza della presenza") ----
+     Elenco foto: attributo data-images sull'<img data-slide> in index.html (percorsi separati da virgola).
+     Cambio con dissolvenza; scorre da solo ogni 5,5 s e si ferma con il mouse sopra
+     (e del tutto se il sistema ha "riduci movimento"). */
   var slider = document.getElementById('slider');
   if (slider) {
     var img = slider.querySelector('[data-slide]');
     var dots = slider.querySelector('.slider__dots');
     var slides = (img.getAttribute('data-images') || img.getAttribute('src')).split(',').map(function (s) { return s.trim(); });
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var current = 0, timer;
+    slides.forEach(function (s) { new Image().src = s; });             // precarica
+    function markDots() {
+      Array.prototype.forEach.call(dots.children, function (d, k) { d.setAttribute('aria-selected', k === current); });
+    }
     function show(i) {
       current = (i + slides.length) % slides.length;
-      img.src = slides[current];
-      Array.prototype.forEach.call(dots.children, function (d, k) { d.setAttribute('aria-selected', k === current); });
+      markDots();
+      if (reduce) { img.src = slides[current]; return; }
+      img.style.opacity = 0;
+      setTimeout(function () { img.src = slides[current]; img.style.opacity = 1; }, 450);
     }
     slides.forEach(function (_, i) {
       var b = document.createElement('button');
@@ -34,8 +44,11 @@
       b.addEventListener('click', function () { show(i); restart(); });
       dots.appendChild(b);
     });
-    function restart() { clearInterval(timer); if (slides.length > 1) { timer = setInterval(function () { show(current + 1); }, 5000); } }
-    show(0); restart();
+    function stop() { clearInterval(timer); }
+    function restart() { stop(); if (slides.length > 1 && !reduce) { timer = setInterval(function () { show(current + 1); }, 5500); } }
+    slider.addEventListener('mouseenter', stop);
+    slider.addEventListener('mouseleave', restart);
+    markDots(); restart();
   }
 
   /* ---- Modulo contatti ----

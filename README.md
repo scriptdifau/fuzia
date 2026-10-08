@@ -21,7 +21,7 @@ design/           riferimenti di design leggeri (i .psd sono esclusi da git)
 
 ## Sostituire i segnaposto
 Sovrascrivi i file in `assets/img/` mantenendo gli stessi nomi (JPG, lato lungo ~2000 px, qualità 80–85).
-- Video hero: in `index.html` imposta `data-video="assets/video/nome.mp4"` su `#hero`.
+- Video hero: file `assets/video/hero.mp4` (16:9, a tutta larghezza, parte da solo senza audio; pulsante audio in basso a destra). Per cambiarlo sostituisci il file e, se serve, la locandina `assets/img/hero.jpg`.
 - Slider "La forza della presenza": nell'`<img data-slide>` aggiungi `data-images="a.jpg,b.jpg,..."`.
 - Modulo contatti: imposta `data-endpoint` del form (es. Formspree); senza, apre il programma di posta.
 

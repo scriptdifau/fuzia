@@ -1,19 +1,22 @@
 (function () {
   'use strict';
 
-  /* ---- Video hero: imposta data-video="percorso/video.mp4" su #hero ---- */
+  /* ---- Video hero: parte da solo (senza audio, come richiedono i browser) ----
+     Pulsante in basso a destra per attivare/disattivare l'audio; un clic sul video lo mette in pausa. */
   var hero = document.getElementById('hero');
   if (hero) {
     var video = hero.querySelector('video');
-    var play = hero.querySelector('.hero__play');
-    play.addEventListener('click', function () {
-      var src = hero.getAttribute('data-video');
-      if (!src) { return; }                       // video non ancora disponibile
-      if (!video.getAttribute('src')) { video.setAttribute('src', src); }
-      video.hidden = false;
-      hero.classList.add('is-playing');
-      video.play();
+    var sound = hero.querySelector('.hero__sound');
+    var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (calm) { video.removeAttribute('autoplay'); video.pause(); video.controls = true; }
+    else { var p = video.play(); if (p && p.catch) { p.catch(function () {}); } }
+    sound.addEventListener('click', function () {
+      video.muted = !video.muted;
+      sound.setAttribute('aria-pressed', !video.muted);
+      sound.setAttribute('aria-label', video.muted ? "Attiva l'audio" : "Disattiva l'audio");
+      if (video.paused && !calm) { video.play(); }
     });
+    video.addEventListener('click', function () { if (video.paused) { video.play(); } else { video.pause(); } });
   }
 
   /* ---- Slider foto (sezione "La forza della presenza") ----

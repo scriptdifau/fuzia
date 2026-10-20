@@ -50,6 +50,11 @@ a{color:inherit}
 
 .hero{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#8d9096}
 .hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;cursor:pointer}
+/* schermi più larghi di 1920 px: il video resta a tutta larghezza ma non supera l'altezza dello schermo (taglia solo un po' sopra e sotto) */
+@media (min-width:1921px){
+  .hero{aspect-ratio:auto;height:min(56.25vw,calc(100vh - 137px))}
+  .hero__video{object-fit:cover;object-position:50% 25%}
+}
 .hero__sound{position:absolute;right:max(14px,1.6%);top:max(14px,2.8%);width:44px;height:44px;padding:11px;border:1px solid rgba(255,255,255,.7);
   border-radius:50%;background:rgba(17,17,17,.35);color:var(--white);cursor:pointer;transition:background .25s}
 .hero__sound:hover{background:rgba(17,17,17,.6)}

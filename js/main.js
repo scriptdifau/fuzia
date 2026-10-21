@@ -47,6 +47,14 @@
       b.addEventListener('click', function () { show(i); restart(); });
       dots.appendChild(b);
     });
+    // frecce ai lati della foto
+    [['prev', -1, 'Foto precedente', 'M14 5l-7 7 7 7'], ['next', 1, 'Foto successiva', 'M10 5l7 7-7 7']].forEach(function (a) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'slider__arrow slider__arrow--' + a[0]; b.setAttribute('aria-label', a[2]);
+      b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + a[3] + '" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      b.addEventListener('click', function () { show(current + a[1]); restart(); });
+      slider.appendChild(b);
+    });
     function stop() { clearInterval(timer); }
     function restart() { stop(); if (slides.length > 1 && !reduce) { timer = setInterval(function () { show(current + 1); }, 5500); } }
     // clic sulla foto = foto successiva; su telefono si scorre con un dito (destra/sinistra)

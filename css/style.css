@@ -85,10 +85,16 @@ figure.it img,.slider>img{width:100%;height:100%;object-fit:cover}
 .t .l{display:block;min-height:calc(var(--lh)*var(--u))}
 .bx{display:block;width:fit-content;background:var(--ink);color:var(--bg);line-height:.94;
   padding:0 var(--bpr,var(--bp,.2em)) 0 var(--bpl,var(--bp,.2em));margin-left:calc(-1*var(--bpl,var(--bp,.2em)))}
+.t--band .bx{padding-block:.06em;margin-block:-.06em}   /* bande un po' più alte, senza spostare le righe */
 
 /* ---------- testi ---------- */
 .body{font-family:var(--font-body);font-weight:300;font-size:calc(1.3cqw*var(--k));line-height:1.6;letter-spacing:.13em;white-space:nowrap;color:var(--ink)}
 .body--dark{color:#14110f}
+/* "Il dialogo tra opposti": su desktop la fascia è scura, quindi "Tra" e il testo vanno in chiaro (su telefono stanno su fondo bianco) */
+@media (min-width:801px){
+  .l--lt{color:var(--bg)}
+  .body--dark{color:var(--bg)}
+}
 .body cite{font-style:italic}
 blockquote.body{margin:0}
 .body{top:calc((var(--y) - var(--y0))*var(--u))}
@@ -96,6 +102,12 @@ blockquote.body{margin:0}
 /* ---------- slider ---------- */
 .slider>img{transition:opacity .45s ease}
 .slider>img{cursor:pointer}
+.slider__arrow{position:absolute;top:50%;width:calc(20*var(--u));height:calc(20*var(--u));margin-top:calc(-10*var(--u));padding:0;border:0;border-radius:50%;
+  background:rgba(255,255,255,.72);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s ease}
+.slider__arrow:hover{background:#fff}
+.slider__arrow svg{width:55%;height:55%}
+.slider__arrow--prev{left:calc(8*var(--u))}
+.slider__arrow--next{right:calc(8*var(--u))}
 .slider__dots{position:absolute;left:calc(64*var(--u));top:calc(100% + 1*var(--u));display:flex}
 .slider__dots button{position:relative;width:calc(14*var(--u));height:calc(14*var(--u));padding:0;border:0;background:none;cursor:pointer}
 .slider__dots button::before{content:"";position:absolute;left:50%;top:50%;width:calc(3.6*var(--u));height:calc(3.6*var(--u));
@@ -188,6 +200,9 @@ figure.bleed-l{left:0;width:calc(var(--w)*var(--u) + var(--ox))}
   .d{display:none}
 
   /* slider */
+  .slider__arrow{width:calc(36*var(--um));height:calc(36*var(--um));margin-top:calc(-18*var(--um))}
+  .slider__arrow--prev{left:calc(8*var(--um))}
+  .slider__arrow--next{right:calc(8*var(--um))}
   .slider__dots{left:calc(342*var(--um)/2 - 84*var(--um));top:calc(100% + 2*var(--um))}
   .slider__dots button{width:calc(24*var(--um));height:calc(24*var(--um))}
   .slider__dots button::before{width:calc(6*var(--um));height:calc(6*var(--um));margin:calc(-3*var(--um)) 0 0 calc(-3*var(--um))}

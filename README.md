@@ -25,11 +25,14 @@ Sovrascrivi i file in `assets/img/` mantenendo gli stessi nomi (JPG, lato lungo 
 - Slider "La forza della presenza": nell'`<img data-slide>` aggiungi `data-images="a.jpg,b.jpg,..."`.
 - Modulo contatti: imposta `data-endpoint` del form (es. Formspree); senza, apre il programma di posta.
 
-## News / stampa (da pannello)
-Le card della sezione "Stampa" si leggono da `data/news.json` (campi: testata, titolo, descrizione, immagine, link; il primo elemento è la card in alto a sinistra). Foto in `assets/img/news/`, quadrate, almeno 1000 px.
-- **Dal pannello**: <https://pagescms.org> → accesso con GitHub → repo `fuzia` → "News / Stampa". La configurazione è in `.pages.yml`. Salvando, il pannello fa un commit su `main` e il sito si aggiorna da solo dopo circa un minuto. Chi usa il pannello deve avere accesso in scrittura al repo.
-- **A mano**: si modifica `data/news.json` su GitHub (matita) e si carica la foto in `assets/img/news/`.
-- Senza voci nel file la sezione resta nascosta. Il pulsante + e il titolo aprono il link in una nuova scheda; senza link non compaiono.
+## News / stampa (backend Supabase)
+Le card della sezione "Stampa" si leggono dalla tabella `news` del progetto Supabase `kmjaocqnzkqdfcgymbcl` (URL e chiave **pubblica** in `js/config.js`; mai la chiave secret/service_role nel repo). Se Supabase non risponde, il sito usa `data/news.json` come copia di riserva.
+- **Gestione**: pagina `/admin/` (es. `https://scriptdifau.github.io/fuzia/admin/`), accesso con email e password. Si aggiunge, modifica, nasconde, riordina (↑ ↓) ed elimina; la foto viene ritagliata quadrata e ridimensionata in automatico. La prima voce è la card in alto a sinistra.
+- **Database e permessi**: `supabase/schema.sql` (tabella `news`, tabella `admins` con le email autorizzate, regole di accesso, cartella foto `news`). Va eseguito una volta nel SQL Editor di Supabase.
+- **Nuovo utente**: Supabase → Authentication → Users → Add user (con "Auto Confirm"), poi `insert into public.admins (email) values ('…');`. Le registrazioni libere vanno disattivate (Authentication → Sign In / Providers → Email → "Allow new users to sign up" spento).
+- `admin/vendor/supabase.js` è la libreria `@supabase/supabase-js` 2.117.0 (build UMD), inclusa nel repo per non dipendere da CDN.
+- **Cambio hosting**: il sito è statico, si sposta ovunque; Supabase resta com'è (basta aggiungere il nuovo dominio tra gli URL consentiti in Authentication → URL Configuration, se si usano link di conferma).
+- Progetto gratuito: va in pausa dopo circa una settimana senza attività; per un uso stabile valutare il piano a pagamento.
 
 ## Pubblicazione di prova (GitHub Pages)
 1. Unisci il lavoro nel ramo `main`.

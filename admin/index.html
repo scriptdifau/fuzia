@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fuzia Jammali – Gestione news</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<main class="wrap">
+  <header class="top">
+    <h1>Fuzia Jammali <span>· gestione news</span></h1>
+    <div class="top__user" id="user" hidden>
+      <span id="user-email"></span>
+      <button type="button" class="btn btn--ghost" id="logout">Esci</button>
+    </div>
+  </header>
+
+  <!-- accesso -->
+  <section class="card" id="login" hidden>
+    <h2>Accedi</h2>
+    <form id="login-form" autocomplete="on">
+      <label>Email<input type="email" id="login-email" autocomplete="username" required></label>
+      <label>Password<input type="password" id="login-pass" autocomplete="current-password" required></label>
+      <button type="submit" class="btn">Entra</button>
+    </form>
+    <p class="msg" id="login-msg" role="status"></p>
+  </section>
+
+  <!-- elenco -->
+  <section id="list-view" hidden>
+    <div class="bar">
+      <p class="hint">L’ordine qui è quello del sito: la prima voce è la card in alto a sinistra.</p>
+      <button type="button" class="btn" id="new">+ Nuova news</button>
+    </div>
+    <p class="msg" id="list-msg" role="status"></p>
+    <ol class="items" id="items"></ol>
+  </section>
+
+  <!-- modifica -->
+  <section class="card" id="edit-view" hidden>
+    <h2 id="edit-title">Nuova news</h2>
+    <form id="edit-form">
+      <label>Testata <small>(es. Vanity Fair)</small><input type="text" id="f-testata" maxlength="80"></label>
+      <label>Titolo<textarea id="f-titolo" rows="2" maxlength="300" required></textarea></label>
+      <label>Testo breve <small>(a capo con Invio)</small><textarea id="f-descrizione" rows="3" maxlength="600"></textarea></label>
+      <label>Link all’articolo <small>(https://…)</small><input type="url" id="f-link" placeholder="https://"></label>
+      <div class="photo">
+        <img id="f-preview" alt="" hidden>
+        <label>Foto <small>(JPG, PNG o WebP; viene ritagliata quadrata e ridimensionata)</small>
+          <input type="file" id="f-file" accept="image/jpeg,image/png,image/webp"></label>
+      </div>
+      <label class="check"><input type="checkbox" id="f-visibile" checked> Visibile sul sito</label>
+      <div class="actions">
+        <button type="submit" class="btn" id="save">Salva</button>
+        <button type="button" class="btn btn--ghost" id="cancel">Annulla</button>
+      </div>
+    </form>
+    <p class="msg" id="edit-msg" role="status"></p>
+  </section>
+</main>
+
+<script src="vendor/supabase.js"></script>
+<script src="../js/config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

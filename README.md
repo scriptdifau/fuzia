@@ -25,6 +25,12 @@ Sovrascrivi i file in `assets/img/` mantenendo gli stessi nomi (JPG, lato lungo 
 - Slider "La forza della presenza": nell'`<img data-slide>` aggiungi `data-images="a.jpg,b.jpg,..."`.
 - Modulo contatti: imposta `data-endpoint` del form (es. Formspree); senza, apre il programma di posta.
 
+## News / stampa (da pannello)
+Le card della sezione "Stampa" si leggono da `data/news.json` (campi: testata, titolo, descrizione, immagine, link; il primo elemento è la card in alto a sinistra). Foto in `assets/img/news/`, quadrate, almeno 1000 px.
+- **Dal pannello**: <https://pagescms.org> → accesso con GitHub → repo `fuzia` → "News / Stampa". La configurazione è in `.pages.yml`. Salvando, il pannello fa un commit su `main` e il sito si aggiorna da solo dopo circa un minuto. Chi usa il pannello deve avere accesso in scrittura al repo.
+- **A mano**: si modifica `data/news.json` su GitHub (matita) e si carica la foto in `assets/img/news/`.
+- Senza voci nel file la sezione resta nascosta. Il pulsante + e il titolo aprono il link in una nuova scheda; senza link non compaiono.
+
 ## Pubblicazione di prova (GitHub Pages)
 1. Unisci il lavoro nel ramo `main`.
 2. Su GitHub: Settings → Pages → Source: **GitHub Actions**.

@@ -49,7 +49,7 @@ Varianti non usate: 046, 119-2, 353-2, 362, 362-2, 371-2, 631-2, 245, 245-1. Sca
 1. Decidere come trattare gli elementi "a tutta larghezza" sugli schermi oltre 1920 px (footer nero, fascia del dialogo, foto di "Certi incontri"). Consigliato: allargare footer e fascia, lasciare le foto nella composizione centrata.
 2. Chiarire le tre foto aperte (struttura 1, fondo del dialogo e footer) e la quinta dello slider.
 3. Invio vero del modulo contatti; cookie banner e privacy (iubenda).
-4. Versione in inglese (pagina `/en/`, selettore IT | EN), sezione stampa (testata, titolo, data, link), eventuale pannello di aggiornamento per la stilista (conviene prima dell'inglese).
+4. Versione in inglese (pagina `/en/`, selettore IT | EN). La sezione stampa c'è già (`data/news.json` + pannello Pages CMS, vedi README): foto e testi attuali sono segnaposto presi dal layout; il pannello va provato dopo il merge. Per l'inglese le news andranno duplicate (es. `news-en.json`).
 5. Video definitivo (peso consigliato 10-15 MB; i file sopra 100 MB GitHub li rifiuta).
 6. Passaggio al dominio definitivo: se il dominio è su Wix, tenere Wix solo per il dominio e puntare i record DNS a un hosting statico (GitHub Pages, Cloudflare Pages o Netlify). Non lasciare la posta senza i record MX.
 

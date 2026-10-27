@@ -71,6 +71,51 @@
     markDots(); restart();
   }
 
+  /* ---- News / stampa ----
+     Le card si leggono da data/news.json (si modifica dal pannello Pages CMS, vedi .pages.yml).
+     Ogni voce: testata, titolo, descrizione, immagine, link. Senza voci la sezione resta nascosta. */
+  var newsList = document.getElementById('news-list');
+  if (newsList && window.fetch) {
+    var safeUrl = function (u) { return /^https?:\/\//i.test(u || '') ? u : ''; };
+    var el = function (tag, cls, text) {
+      var n = document.createElement(tag);
+      if (cls) { n.className = cls; }
+      if (text) { n.textContent = text; }
+      return n;
+    };
+    fetch(newsList.getAttribute('data-src'), { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : { items: [] }; })
+      .then(function (data) {
+        var items = (data && data.items) || [];
+        items.forEach(function (it) {
+          var card = el('article', 'news__card');
+          if (it.immagine) {
+            var im = el('img', 'news__img');
+            im.src = String(it.immagine).replace(/^\//, '');     // percorso relativo anche se il pannello scrive "/assets/…"
+            im.alt = ''; im.loading = 'lazy'; im.decoding = 'async';
+            card.appendChild(im);
+          }
+          var url = safeUrl(it.link);
+          var head = el('h3', 'news__head');
+          var wrap = url ? document.createElement('a') : head;
+          if (url) { wrap.href = url; wrap.target = '_blank'; wrap.rel = 'noopener noreferrer'; head.appendChild(wrap); }
+          if (it.testata) { wrap.appendChild(el('span', 'news__src', it.testata)); }
+          wrap.appendChild(document.createTextNode(it.titolo || ''));
+          card.appendChild(head);
+          if (it.descrizione) { card.appendChild(el('p', 'news__text', it.descrizione)); }
+          if (url) {
+            var more = el('a', 'news__more');
+            more.href = url; more.target = '_blank'; more.rel = 'noopener noreferrer';
+            more.setAttribute('aria-label', 'Leggi l’articolo: ' + (it.titolo || it.testata || ''));
+            card.appendChild(more);
+          }
+          newsList.appendChild(card);
+        });
+        if (items.length) { newsList.closest('.news').hidden = false; }
+      })
+      .catch(function () { /* senza news la sezione resta nascosta */ });
+  }
+
   /* ---- Modulo contatti ----
      Con data-endpoint (es. Formspree) invia via fetch; altrimenti apre il client di posta. */
   var form = document.getElementById('contact-form');

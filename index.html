@@ -185,6 +185,15 @@
     </p>
   </section>
 
+  <!-- ============ STAMPA / NEWS (le card arrivano da data/news.json, vedi js/main.js) ============ -->
+  <section class="news" id="stampa" aria-labelledby="news-title" hidden>
+    <h2 class="sr-only" id="news-title">Stampa</h2>
+    <div class="news__in">
+      <div class="news__bar"></div>
+      <div class="news__list" id="news-list" data-src="data/news.json"></div>
+    </div>
+  </section>
+
   <!-- ============ CONTATTI ============ -->
   <footer class="sec foot" id="contatti" style="--u:calc(100cqw*var(--k)/582);--y0:1590;--hh:410;--mhh:990">
     <img class="foot__photo" src="assets/img/footer.jpg" alt="" >

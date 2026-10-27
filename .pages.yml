@@ -1,0 +1,34 @@
+# Pannello di modifica (Pages CMS – https://pagescms.org)
+# Accedi con GitHub, scegli il repo "fuzia" e modifica le news: il sito si aggiorna da solo dopo il salvataggio.
+
+media:
+  input: assets/img/news
+  output: assets/img/news
+
+content:
+  - name: news
+    label: News / Stampa
+    type: file
+    path: data/news.json
+    format: json
+    fields:
+      - name: items
+        label: Articoli (il primo è quello in alto a sinistra)
+        type: object
+        list: true
+        fields:
+          - name: testata
+            label: Testata (es. Vanity Fair)
+            type: string
+          - name: titolo
+            label: Titolo
+            type: string
+          - name: descrizione
+            label: Testo breve (a capo con Invio)
+            type: text
+          - name: immagine
+            label: Foto (quadrata, almeno 1000 px)
+            type: image
+          - name: link
+            label: Link all'articolo (https://…)
+            type: string

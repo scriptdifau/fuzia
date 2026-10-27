@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "testata": "Vanity Fair",
+      "titolo": "intervista a Fuzia Jammali",
+      "descrizione": "L’arte sartoriale della stilista\nFuzia Jammali: abiti che raccontano storie di libertà",
+      "immagine": "assets/img/news/vanity-fair-1.jpg",
+      "link": "https://www.vanityfair.it/"
+    },
+    {
+      "testata": "Vanity Fair",
+      "titolo": "L’arte sartoriale della stilista Fuzia Jammali: abiti che raccontano storie di libertà",
+      "descrizione": "Dalla Tunisia a Torino, i suoi tessuti «plasmati» a mano e i suoi capi unici",
+      "immagine": "assets/img/news/vanity-fair-2.jpg",
+      "link": "https://www.vanityfair.it/"
+    },
+    {
+      "testata": "Vanity Fair",
+      "titolo": "intervista a Fuzia Jammali",
+      "descrizione": "L’arte sartoriale della stilista\nFuzia Jammali: abiti che raccontano storie di libertà",
+      "immagine": "assets/img/news/vanity-fair-1.jpg",
+      "link": "https://www.vanityfair.it/"
+    }
+  ]
+}

@@ -72,7 +72,8 @@
   }
 
   /* ---- News / stampa ----
-     Le card si leggono da data/news.json (si modifica dal pannello Pages CMS, vedi .pages.yml).
+     Le card si leggono dalla tabella "news" di Supabase (si modificano da /admin/, vedi supabase/schema.sql).
+     Se Supabase non risponde, si usa data/news.json come copia di riserva.
      Ogni voce: testata, titolo, descrizione, immagine, link. Senza voci la sezione resta nascosta. */
   var newsList = document.getElementById('news-list');
   if (newsList && window.fetch) {
@@ -83,8 +84,19 @@
       if (text) { n.textContent = text; }
       return n;
     };
-    fetch(newsList.getAttribute('data-src'), { cache: 'no-cache' })
-      .then(function (r) { return r.ok ? r.json() : { items: [] }; })
+    var cfg = window.FUZIA || {};
+    var fromFile = function () {
+      return fetch(newsList.getAttribute('data-src'), { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : { items: [] }; });
+    };
+    var loadNews = function () {
+      if (!cfg.supabaseUrl || !cfg.supabaseKey) { return fromFile(); }
+      return fetch(cfg.supabaseUrl + '/rest/v1/news?select=testata,titolo,descrizione,immagine,link&visibile=eq.true&order=posizione.asc,created_at.desc',
+        { headers: { apikey: cfg.supabaseKey }, cache: 'no-store' })
+        .then(function (r) { if (!r.ok) { throw new Error(r.status); } return r.json(); })
+        .then(function (rows) { return { items: rows }; })
+        .catch(fromFile);
+    };
+    loadNews()
       .then(function (data) {
         var items = (data && data.items) || [];
         items.forEach(function (it) {

@@ -34,6 +34,11 @@ Le card della sezione "Stampa" si leggono dalla tabella `news` del progetto Supa
 - **Cambio hosting**: il sito è statico, si sposta ovunque; Supabase resta com'è (basta aggiungere il nuovo dominio tra gli URL consentiti in Authentication → URL Configuration, se si usano link di conferma).
 - Progetto gratuito: va in pausa dopo circa una settimana senza attività; per un uso stabile valutare il piano a pagamento.
 
+## Prestazioni (telefono)
+- Ogni foto ha una versione leggera `nome-900.jpg` (900 px) che il telefono sceglie da solo (`srcset` in `index.html`); le foto si caricano man mano che si scorre (`loading="lazy"`).
+- **Dopo aver sostituito una foto** rigenera la sua versione: `python tools/make-variants.py` (serve Pillow: `pip install pillow`), poi committa anche il file `-900`. Senza, il telefono mostra la foto vecchia.
+- Video hero: parte a pagina caricata e non con risparmio dati/rete lenta (resta la locandina, parte con un tocco). Per telefono si può aggiungere una versione leggera (720p, 4-6 MB circa) `assets/video/hero-mobile.mp4` e l'attributo `data-src-mobile="assets/video/hero-mobile.mp4"` sul `<video>`: se il file non carica, si torna al video normale.
+
 ## Pubblicazione di prova (GitHub Pages)
 1. Unisci il lavoro nel ramo `main`.
 2. Su GitHub: Settings → Pages → Source: **GitHub Actions**.

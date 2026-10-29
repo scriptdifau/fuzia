@@ -49,8 +49,10 @@
       return true;
     });
   }
-  window.addEventListener('scroll', sweep, { passive: true });
-  window.addEventListener('resize', sweep);
+  var sweepQ = false;
+  function sweepSoon() { if (sweepQ) { return; } sweepQ = true; requestAnimationFrame(function () { sweepQ = false; sweep(); }); }
+  window.addEventListener('scroll', sweepSoon, { passive: true });
+  window.addEventListener('resize', sweepSoon);
   window.addEventListener('load', sweep);
   sweep();
 
@@ -82,8 +84,10 @@
     if (!parRun) { parRun = true; requestAnimationFrame(parTick); }
   }
   if (pars.length) {
-    window.addEventListener('scroll', parUpdate, { passive: true });
-    window.addEventListener('resize', parUpdate);
+    var parQ = false;
+    var parSoon = function () { if (parQ) { return; } parQ = true; requestAnimationFrame(function () { parQ = false; parUpdate(); }); };
+    window.addEventListener('scroll', parSoon, { passive: true });
+    window.addEventListener('resize', parSoon);
     window.addEventListener('load', parUpdate);
     parUpdate();
   }

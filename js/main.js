@@ -8,8 +8,20 @@
     var video = hero.querySelector('video');
     var sound = hero.querySelector('.hero__sound');
     var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (calm) { video.removeAttribute('autoplay'); video.pause(); video.controls = true; }
-    else { var p = video.play(); if (p && p.catch) { p.catch(function () {}); } }
+    var small = window.matchMedia && window.matchMedia('(max-width: 800px)').matches;
+    var conn = navigator.connection || {};
+    var slow = conn.saveData || /(^|-)(2g|3g)$/.test(conn.effectiveType || '');
+    // su telefono: se c'è una versione leggera (data-src-mobile) si usa quella; se manca o non carica, resta il video normale
+    var mobileSrc = video.getAttribute('data-src-mobile');
+    if (small && mobileSrc) {
+      var desktopSrc = video.getAttribute('src');
+      video.addEventListener('error', function () { if (video.getAttribute('src') !== desktopSrc) { video.src = desktopSrc; start(); } }, { once: true });
+      video.src = mobileSrc;
+    }
+    // parte a pagina caricata (così foto e testi hanno la precedenza sulla rete); con risparmio dati o rete lenta resta la locandina e parte con un tocco
+    function start() { var p = video.play(); if (p && p.catch) { p.catch(function () {}); } }
+    if (calm) { video.pause(); video.controls = true; }
+    else if (!slow) { if (document.readyState === 'complete') { start(); } else { window.addEventListener('load', start); } }
     sound.addEventListener('click', function () {
       video.muted = !video.muted;
       sound.setAttribute('aria-pressed', !video.muted);
@@ -30,13 +42,19 @@
     var slides = (img.getAttribute('data-images') || img.getAttribute('src')).split(',').map(function (s) { return s.trim(); });
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var current = 0, timer;
-    slides.forEach(function (s) { new Image().src = s; });             // precarica
+    // su telefono foto più leggere (-900); il resto si carica una alla volta (la successiva)
+    var smallScr = window.matchMedia && window.matchMedia('(max-width: 800px)').matches;
+    if (smallScr) { slides = slides.map(function (s) { return s.replace(/\.jpg$/, '-900.jpg'); }); }
+    else if (img.getAttribute('src') !== slides[0]) { img.src = slides[0]; }
+    function warm(i) { if (slides.length > 1) { new Image().src = slides[(i + 1) % slides.length]; } }
+    if (document.readyState === 'complete') { warm(0); } else { window.addEventListener('load', function () { warm(0); }); }
     function markDots() {
       Array.prototype.forEach.call(dots.children, function (d, k) { d.setAttribute('aria-selected', k === current); });
     }
     function show(i) {
       current = (i + slides.length) % slides.length;
       markDots();
+      warm(current);
       if (reduce) { img.src = slides[current]; return; }
       img.style.opacity = 0;
       setTimeout(function () { img.src = slides[current]; img.style.opacity = 1; }, 450);

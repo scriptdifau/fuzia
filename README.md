@@ -37,7 +37,7 @@ Le card della sezione "Stampa" si leggono dalla tabella `news` del progetto Supa
 ## Prestazioni (telefono)
 - Ogni foto ha una versione leggera `nome-900.jpg` (900 px) che il telefono sceglie da solo (`srcset` in `index.html`); le foto si caricano man mano che si scorre (`loading="lazy"`).
 - **Le versioni leggere si creano da sole** a ogni pubblicazione (passo "Crea le versioni leggere delle foto" in `.github/workflows/pages.yml`, che usa `tools/make-variants.py`): per cambiare una foto basta sostituire l'originale mantenendo il nome. Se `index.html` cita una `-900` che non esiste, la pubblicazione si ferma e il sito resta com'è. Per provare il sito in locale: `python tools/make-variants.py` (serve Pillow).
-- Video hero: parte a pagina caricata e non con risparmio dati/rete lenta (resta la locandina, parte con un tocco). Per telefono si può aggiungere una versione leggera (720p, 4-6 MB circa) `assets/video/hero-mobile.mp4` e l'attributo `data-src-mobile="assets/video/hero-mobile.mp4"` sul `<video>`: se il file non carica, si torna al video normale.
+- Video hero: parte a pagina caricata e non con risparmio dati/rete lenta (resta la locandina, parte con un tocco). Su telefono (≤ 800 px) usa `assets/video/hero-mobile.mp4` (720p, ~12 MB, attributo `data-src-mobile` sul `<video>`); se non carica, si torna a `hero.mp4`. Per rifarlo: HandBrake, 720p, H.264, ~900 kbps in 2 passaggi, "Ottimizzato per il web"; se l'indice è in fondo al file (non ottimizzato) basta `python tools/faststart.py assets/video/hero-mobile.mp4` (senza ricodificare).
 
 ## Pubblicazione di prova (GitHub Pages)
 1. Unisci il lavoro nel ramo `main`.

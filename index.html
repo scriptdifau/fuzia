@@ -24,7 +24,7 @@
 
 <!-- ============ HERO VIDEO (a tutta larghezza dello schermo, oltre i 1920 px dell'impaginazione) ============ -->
   <section class="hero" id="hero" aria-label="Video di presentazione">
-    <video class="hero__video" src="assets/video/hero.mp4" poster="assets/img/hero.jpg" autoplay muted loop playsinline preload="auto"></video>
+    <video class="hero__video" src="assets/video/hero.mp4" data-src-mobile="assets/video/hero-mobile.mp4" poster="assets/img/hero.jpg" muted loop playsinline preload="metadata"></video>
     <button class="hero__sound" type="button" aria-label="Attiva l'audio" aria-pressed="false">
       <svg class="i-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3Z" fill="currentColor"/><path d="m16 9 5 6m0-6-5 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
       <svg class="i-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3Z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -35,13 +35,13 @@
   <!-- ============ IL DIALOGO TRA OPPOSTI ============ -->
   <section class="sec" id="dialogo" style="--u:calc(100cqw*var(--k)/1096);--y0:679;--hh:1290;--mhh:1330">
     <div class="bgband" style="--y:1381;--h:610;background-color:#272a21;--my:760;--mh:410">
-      <div class="bgband__in"><img src="assets/img/dialogo-bg.jpg" alt="" data-par></div>
+      <div class="bgband__in"><img src="assets/img/dialogo-bg.jpg" alt="" loading="lazy" decoding="async" data-par></div>
     </div>
 
     <div class="grp">
-    <figure class="it" style="--x:191;--y:777;--w:156;--h:204;--mx:73;--my:30;--mw:112;--mh:146"><img src="assets/img/dialogo-1.jpg" alt=""></figure>
-      <figure class="it" style="--x:347;--y:850;--w:253;--h:338;--mx:185;--my:82;--mw:181;--mh:242"><img src="assets/img/dialogo-2.jpg" alt=""></figure>
-      <figure class="it" style="--x:123;--y:981;--w:226;--h:243;--mx:24;--my:176;--mw:162;--mh:174"><img src="assets/img/dialogo-3.jpg" alt=""></figure>
+    <figure class="it" style="--x:191;--y:777;--w:156;--h:204;--mx:73;--my:30;--mw:112;--mh:146"><img src="assets/img/dialogo-1.jpg" srcset="assets/img/dialogo-1-900.jpg 900w, assets/img/dialogo-1.jpg 1353w" sizes="(max-width:800px) 60vw, 33vw" loading="lazy" decoding="async" alt=""></figure>
+      <figure class="it" style="--x:347;--y:850;--w:253;--h:338;--mx:185;--my:82;--mw:181;--mh:242"><img src="assets/img/dialogo-2.jpg" srcset="assets/img/dialogo-2-900.jpg 900w, assets/img/dialogo-2.jpg 1485w" sizes="(max-width:800px) 60vw, 33vw" loading="lazy" decoding="async" alt=""></figure>
+      <figure class="it" style="--x:123;--y:981;--w:226;--h:243;--mx:24;--my:176;--mw:162;--mh:174"><img src="assets/img/dialogo-3.jpg" srcset="assets/img/dialogo-3-900.jpg 900w, assets/img/dialogo-3.jpg 1485w" sizes="(max-width:800px) 60vw, 33vw" loading="lazy" decoding="async" alt=""></figure>
     </div>
 
     <blockquote class="it body" style="--x:670;--y:886;--mx:24;--my:380;--mw:342">
@@ -76,9 +76,9 @@
   <!-- ============ STRUTTURA / COPERTURA / RIGORE ============ -->
   <section class="sec" id="visione" style="--u:calc(100cqw*var(--k)/769);--y0:18;--hh:1972;--mhh:2100">
     <div class="grp">
-    <figure class="it" style="--x:503;--y:0;--w:179;--h:240;--mx:225;--my:240;--mw:140;--mh:187"><img src="assets/img/struttura-1.jpg" alt=""></figure>
-      <figure class="it" style="--x:245;--y:215;--w:198;--h:293;--mx:24;--my:408;--mw:154;--mh:229"><img src="assets/img/struttura-2.jpg" alt=""></figure>
-      <figure class="it" style="--x:443;--y:240;--w:240;--h:360;--mx:178;--my:427;--mw:187;--mh:281"><img src="assets/img/struttura-3.jpg" alt=""></figure>
+    <figure class="it" style="--x:503;--y:0;--w:179;--h:240;--mx:225;--my:240;--mw:140;--mh:187"><img src="assets/img/struttura-1.jpg" srcset="assets/img/struttura-1-900.jpg 900w, assets/img/struttura-1.jpg 1068w" sizes="(max-width:800px) 60vw, 33vw" loading="lazy" decoding="async" alt=""></figure>
+      <figure class="it" style="--x:245;--y:215;--w:198;--h:293;--mx:24;--my:408;--mw:154;--mh:229"><img src="assets/img/struttura-2.jpg" srcset="assets/img/struttura-2-900.jpg 900w, assets/img/struttura-2.jpg 1303w" sizes="(max-width:800px) 60vw, 33vw" loading="lazy" decoding="async" alt=""></figure>
+      <figure class="it" style="--x:443;--y:240;--w:240;--h:360;--mx:178;--my:427;--mw:187;--mh:281"><img src="assets/img/struttura-3.jpg" srcset="assets/img/struttura-3-900.jpg 900w, assets/img/struttura-3.jpg 1485w" sizes="(max-width:800px) 60vw, 33vw" loading="lazy" decoding="async" alt=""></figure>
     </div>
 
     <h2 class="it t t--box" style="--bp:.22em;--x:87;--y:106;--fs:58;--lh:66;--mx:24;--my:40;--mfs:46;--mlh:52">
@@ -90,9 +90,9 @@
     </p>
 
     <div class="grp">
-    <figure class="it" style="--x:88;--y:663;--w:240;--h:360;--mx:24;--my:975;--mw:180;--mh:270"><img src="assets/img/copertura-1.jpg" alt=""></figure>
-      <figure class="it" style="--x:181;--y:1023;--w:147;--h:193;--mx:94;--my:1245;--mw:110;--mh:145"><img src="assets/img/copertura-2.jpg" alt=""></figure>
-      <figure class="it" style="--x:328;--y:941;--w:186;--h:247;--mx:204;--my:1184;--mw:140;--mh:185"><img src="assets/img/copertura-3.jpg" alt=""></figure>
+    <figure class="it" style="--x:88;--y:663;--w:240;--h:360;--mx:24;--my:975;--mw:180;--mh:270"><img src="assets/img/copertura-1.jpg" srcset="assets/img/copertura-1-900.jpg 900w, assets/img/copertura-1.jpg 1437w" sizes="(max-width:800px) 60vw, 33vw" loading="lazy" decoding="async" alt=""></figure>
+      <figure class="it" style="--x:181;--y:1023;--w:147;--h:193;--mx:94;--my:1245;--mw:110;--mh:145"><img src="assets/img/copertura-2.jpg" srcset="assets/img/copertura-2-900.jpg 900w, assets/img/copertura-2.jpg 1500w" sizes="(max-width:800px) 60vw, 33vw" loading="lazy" decoding="async" alt=""></figure>
+      <figure class="it" style="--x:328;--y:941;--w:186;--h:247;--mx:204;--my:1184;--mw:140;--mh:185"><img src="assets/img/copertura-3.jpg" srcset="assets/img/copertura-3-900.jpg 900w, assets/img/copertura-3.jpg 1497w" sizes="(max-width:800px) 60vw, 33vw" loading="lazy" decoding="async" alt=""></figure>
     </div>
 
     <h2 class="it t t--box" style="--bp:.22em;--x:317;--y:686;--fs:58;--lh:66;--mx:24;--my:770;--mfs:46;--mlh:52">
@@ -104,10 +104,10 @@
     </p>
 
     <div class="grp">
-    <figure class="it" style="--x:225;--y:1346;--w:221;--h:310;--mx:24;--my:1652;--mw:166;--mh:232"><img src="assets/img/rigore-1.jpg" alt=""></figure>
-      <figure class="it" style="--x:446;--y:1276;--w:231;--h:277;--mx:190;--my:1600;--mw:173;--mh:208"><img src="assets/img/rigore-2.jpg" alt=""></figure>
-      <figure class="it" style="--x:276;--y:1656;--w:170;--h:227;--mx:62;--my:1884;--mw:128;--mh:170"><img src="assets/img/rigore-3.jpg" alt=""></figure>
-      <figure class="it" style="--x:446;--y:1553;--w:174;--h:239;--mx:190;--my:1808;--mw:131;--mh:179"><img src="assets/img/rigore-4.jpg" alt=""></figure>
+    <figure class="it" style="--x:225;--y:1346;--w:221;--h:310;--mx:24;--my:1652;--mw:166;--mh:232"><img src="assets/img/rigore-1.jpg" srcset="assets/img/rigore-1-900.jpg 900w, assets/img/rigore-1.jpg 1500w" sizes="(max-width:800px) 60vw, 33vw" loading="lazy" decoding="async" alt=""></figure>
+      <figure class="it" style="--x:446;--y:1276;--w:231;--h:277;--mx:190;--my:1600;--mw:173;--mh:208"><img src="assets/img/rigore-2.jpg" srcset="assets/img/rigore-2-900.jpg 900w, assets/img/rigore-2.jpg 1500w" sizes="(max-width:800px) 60vw, 33vw" loading="lazy" decoding="async" alt=""></figure>
+      <figure class="it" style="--x:276;--y:1656;--w:170;--h:227;--mx:62;--my:1884;--mw:128;--mh:170"><img src="assets/img/rigore-3.jpg" srcset="assets/img/rigore-3-900.jpg 900w, assets/img/rigore-3.jpg 1500w" sizes="(max-width:800px) 60vw, 33vw" loading="lazy" decoding="async" alt=""></figure>
+      <figure class="it" style="--x:446;--y:1553;--w:174;--h:239;--mx:190;--my:1808;--mw:131;--mh:179"><img src="assets/img/rigore-4.jpg" srcset="assets/img/rigore-4-900.jpg 900w, assets/img/rigore-4.jpg 1500w" sizes="(max-width:800px) 60vw, 33vw" loading="lazy" decoding="async" alt=""></figure>
     </div>
 
     <h2 class="it t t--box" style="--bp:.22em;--x:87;--y:1272;--fs:58;--lh:66;--mx:24;--my:1440;--mfs:46;--mlh:52">
@@ -139,14 +139,14 @@
       le appartiene.
     </p>
     <div class="it slider solo" id="slider" style="--x:292;--y:285;--w:226;--h:234;--mx:24;--my:490;--mw:342;--mh:354">
-      <img src="assets/img/forza-1.jpg" alt="" data-slide data-images="assets/img/forza-1.jpg,assets/img/slider-1.jpg,assets/img/slider-2.jpg,assets/img/slider-3.jpg,assets/img/slider-4.jpg,assets/img/slider-5.jpg,assets/img/slider-6.jpg">
+      <img src="assets/img/forza-1-900.jpg" decoding="async" alt="" data-slide data-images="assets/img/forza-1.jpg,assets/img/slider-1.jpg,assets/img/slider-2.jpg,assets/img/slider-3.jpg,assets/img/slider-4.jpg,assets/img/slider-5.jpg,assets/img/slider-6.jpg">
       <div class="slider__dots" role="tablist" aria-label="Foto"></div>
     </div>
   </section>
 
   <!-- ============ CERTI INCONTRI ACCADONO + ATELIER ============ -->
   <section class="sec" id="atelier" style="--u:calc(100cqw*var(--k)/582);--y0:545;--hh:1175;--mhh:1584">
-    <figure class="it solo bleed-l" style="--x:0;--y:715;--w:373;--h:500;--mx:0;--my:214;--mw:300;--mh:402"><img src="assets/img/certi.jpg" alt="" data-par></figure>
+    <figure class="it solo bleed-l" style="--x:0;--y:715;--w:373;--h:500;--mx:0;--my:214;--mw:300;--mh:402"><img src="assets/img/certi.jpg" srcset="assets/img/certi-900.jpg 900w, assets/img/certi.jpg 1497w" sizes="(max-width:800px) 82vw, 55vw" loading="lazy" decoding="async" alt="" data-par></figure>
     <h2 class="it t" style="--x:65;--y:488;--fs:74;--lh:72;--mx:24;--my:40;--mfs:52;--mlh:50">
       <span class="l">Certi</span>
       <span class="l">Incontri</span>
@@ -159,9 +159,9 @@
     </p>
 
     <div class="grp">
-    <figure class="it" style="--x:168;--y:1192;--w:167;--h:169;--mx:24;--my:684;--mw:164;--mh:166"><img src="assets/img/atelier-1.jpg" alt=""></figure>
-      <figure class="it" style="--x:335;--y:1270;--w:182;--h:215;--mx:188;--my:760;--mw:178;--mh:211"><img src="assets/img/atelier-2.jpg" alt="" style="object-position:left"></figure>
-      <figure class="it" style="--x:335;--y:1485;--w:100;--h:133;--mx:188;--my:971;--mw:98;--mh:130"><img src="assets/img/atelier-3.jpg" alt=""></figure>
+    <figure class="it" style="--x:168;--y:1192;--w:167;--h:169;--mx:24;--my:684;--mw:164;--mh:166"><img src="assets/img/atelier-1.jpg" srcset="assets/img/atelier-1-900.jpg 900w, assets/img/atelier-1.jpg 1997w" sizes="(max-width:800px) 60vw, 33vw" loading="lazy" decoding="async" alt=""></figure>
+      <figure class="it" style="--x:335;--y:1270;--w:182;--h:215;--mx:188;--my:760;--mw:178;--mh:211"><img src="assets/img/atelier-2.jpg" srcset="assets/img/atelier-2-900.jpg 900w, assets/img/atelier-2.jpg 1473w" sizes="(max-width:800px) 60vw, 33vw" loading="lazy" decoding="async" alt="" style="object-position:left"></figure>
+      <figure class="it" style="--x:335;--y:1485;--w:100;--h:133;--mx:188;--my:971;--mw:98;--mh:130"><img src="assets/img/atelier-3.jpg" srcset="assets/img/atelier-3-900.jpg 900w, assets/img/atelier-3.jpg 1413w" sizes="(max-width:800px) 60vw, 33vw" loading="lazy" decoding="async" alt=""></figure>
     </div>
 
     <h2 class="it t" style="--x:70;--y:1383;--fs:56;--lh:52;--mx:24;--my:1134;--mfs:56;--mlh:54">
@@ -196,7 +196,7 @@
 
   <!-- ============ CONTATTI ============ -->
   <footer class="sec foot" id="contatti" style="--u:calc(100cqw*var(--k)/582);--y0:1590;--hh:410;--mhh:990">
-    <img class="foot__photo" src="assets/img/footer.jpg" alt="" >
+    <img class="foot__photo" src="assets/img/footer.jpg" alt="" loading="lazy" decoding="async">
     <h2 class="it t t--sm" style="--x:78;--y:1683;--fs:22;--lh:30;--mx:24;--my:140;--mfs:24;--mlh:30">Contattami</h2>
 
     <form class="it form" id="contact-form" style="--x:80;--y:1710;--w:225;--mx:24;--my:190;--mw:342" data-endpoint="" data-to="info@fuziajammali.com" novalidate>

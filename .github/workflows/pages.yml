@@ -22,10 +22,21 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Crea le versioni leggere delle foto
+        run: |
+          pip install --quiet pillow
+          python tools/make-variants.py
+          # rete di sicurezza: se index.html cita una versione -900 che non esiste, la pubblicazione si ferma (il sito resta com'è)
+          for f in $(grep -oE 'assets/img/[A-Za-z0-9_-]+-900\.jpg' index.html | sort -u); do
+            test -f "$f" || { echo "Manca $f"; exit 1; }
+          done
       - name: Prepara i file del sito
         run: |
           mkdir _site
-          rsync -a --exclude '.git' --exclude '.github' --exclude 'design' --exclude '_site' --exclude 'README.md' --exclude '.gitignore' ./ _site/
+          rsync -a --exclude '.git' --exclude '.github' --exclude 'design' --exclude 'tools' --exclude '_site' --exclude 'README.md' --exclude '.gitignore' ./ _site/
           touch _site/.nojekyll
           # evita che il browser usi vecchie copie di stili, script e immagini: aggiunge ?v=<codice versione> ai riferimenti
           V=${GITHUB_SHA::7}

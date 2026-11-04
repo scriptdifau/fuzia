@@ -45,6 +45,7 @@ Le card della sezione "Stampa" si leggono dalla tabella `news` del progetto Supa
 - **Caricamento**: si sostituisce `i18n/traduzioni.csv` nel repo. A ogni pubblicazione `tools/i18n.py build` crea `en/index.html` (indirizzi relativi alla radice con `<base href="../">`) e rende visibile il selettore IT | EN. Senza traduzioni la pagina inglese non viene creata e il selettore resta nascosto. Celle vuote: resta l'italiano, e il log di pubblicazione elenca le mancanti.
 - I titoli grandi che in inglese escono dalla pagina si rimpiccioliscono da soli (`--fit`, in `js/main.js`).
 - **Se si cambia un testo italiano o se ne aggiunge uno**: `python tools/i18n.py export` (aggiorna il CSV mantenendo le traduzioni esistenti). Anteprima locale della pagina inglese: `python tools/i18n.py build --out .` e aprire `/en/` (la cartella `en/` non va committata).
+- **Bozza di traduzione inglese**: `i18n/bozza-traduzione-en.csv` (con una colonna `note`). Non viene usata dal sito: per adottarla, dopo la revisione, si copia come `i18n/traduzioni.csv` (la colonna `note` è ignorata) e dal merge successivo la pagina `/en/` esce online.
 - Non tradotti da questo sistema: le news (Stampa) e il testo scritto dentro il video.
 
 ## Pubblicazione di prova (GitHub Pages)

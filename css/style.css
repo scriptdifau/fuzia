@@ -168,9 +168,6 @@ blockquote.body{margin:0}
 .ic{display:block;width:calc(14*var(--u));height:calc(14*var(--u));background:currentColor;
   -webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
 .ic--instagram{--ico:url("../assets/icons/instagram.svg")}
-.ic--facebook{--ico:url("../assets/icons/facebook.svg")}
-.ic--twitter{--ico:url("../assets/icons/twitter.svg")}
-.ic--linkedin{--ico:url("../assets/icons/linkedin.svg")}
 .mail{font-size:calc(1.05cqw*var(--k));letter-spacing:.1em;text-decoration:none;white-space:nowrap}
 
 /* ---------- foto a filo pagina ---------- */

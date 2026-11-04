@@ -10,3 +10,8 @@
 .DS_Store
 Thumbs.db
 node_modules/
+# versione inglese e cartelle di prova generate da tools/i18n.py (si creano a ogni pubblicazione)
+en/
+_site/
+_preview/
+__pycache__/

@@ -36,11 +36,15 @@ jobs:
       - name: Prepara i file del sito
         run: |
           mkdir _site
-          rsync -a --exclude '.git' --exclude '.github' --exclude 'design' --exclude 'tools' --exclude '_site' --exclude 'README.md' --exclude '.gitignore' ./ _site/
+          rsync -a --exclude '.git' --exclude '.github' --exclude 'design' --exclude 'tools' --exclude 'i18n' --exclude '_site' --exclude 'README.md' --exclude '.gitignore' ./ _site/
           touch _site/.nojekyll
+          # versione inglese: crea _site/en/index.html dalle traduzioni (i18n/traduzioni.csv); senza traduzioni non crea nulla
+          python tools/i18n.py build --out _site
           # evita che il browser usi vecchie copie di stili, script e immagini: aggiunge ?v=<codice versione> ai riferimenti
           V=${GITHUB_SHA::7}
-          sed -i -E "s#(css/style\.css|js/main\.js|js/motion\.js)\"#\1?v=${V}\"#g; s#(assets/img/[A-Za-z0-9_-]+\.(jpg|svg))#\1?v=${V}#g" _site/index.html
+          for f in _site/index.html _site/en/index.html; do
+            if [ -f "$f" ]; then sed -i -E "s#(css/style\.css|js/main\.js|js/motion\.js)\"#\1?v=${V}\"#g; s#(assets/img/[A-Za-z0-9_-]+\.(jpg|svg))#\1?v=${V}#g" "$f"; fi
+          done
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

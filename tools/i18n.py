@@ -14,6 +14,7 @@ Nel file CSV:   |  = a capo (solo desktop)      ¶  = nuovo paragrafo
 
 Uso
   python tools/i18n.py export                  aggiorna i18n/traduzioni.csv
+  python tools/i18n.py import FILE             carica le traduzioni da un .xlsx o .csv rivisto (ne usa solo la colonna "inglese")
   python tools/i18n.py build --out DIR         scrive DIR/en/index.html (DIR = cartella del sito, di solito _site)
   python tools/i18n.py build --out . --strict  anteprima locale in ./en/ ; con --strict fallisce se manca qualche traduzione
 Solo libreria standard di Python 3.
@@ -213,20 +214,82 @@ def read_translations():
     return out
 
 
-def cmd_export(_args):
-    items = collect()
-    old = read_translations()
+def write_csv(items, english):
     os.makedirs(os.path.dirname(CSV_PATH), exist_ok=True)
     with open(CSV_PATH, 'w', encoding='utf-8-sig', newline='') as f:
         w = csv.writer(f, delimiter=';', lineterminator='\r\n')
         w.writerow(['chiave', 'contesto', 'italiano', 'inglese'])
         for k, it in items.items():
-            w.writerow([k, CONTEXT.get(k, ''), it, old.get(k, '')])
+            w.writerow([k, CONTEXT.get(k, ''), it, english.get(k, '')])
+
+
+def cmd_export(_args):
+    items = collect()
+    old = read_translations()
+    write_csv(items, old)
     gone = [k for k in old if k not in items and old[k]]
     done = sum(1 for k in items if old.get(k))
     print('scritto %s: %d testi, %d già tradotti' % (os.path.relpath(CSV_PATH, ROOT), len(items), done))
     if gone:
         print('ATTENZIONE: traduzioni di chiavi che non esistono più (eliminate dal file):', ', '.join(gone))
+
+
+# ---------------------------------------------------------------- import
+def read_table(path):
+    """Righe (dict) di un .xlsx (primo foglio) o di un .csv."""
+    if path.lower().endswith(('.xlsx', '.xlsm')):
+        try:
+            import openpyxl
+        except ImportError:
+            raise Err('per leggere un .xlsx serve openpyxl (pip install openpyxl); oppure salva il file come CSV')
+        ws = openpyxl.load_workbook(path, data_only=True).worksheets[0]
+        rows = list(ws.iter_rows(values_only=True))
+        head = [str(c or '').strip().lower() for c in rows[0]]
+        return [dict(zip(head, ['' if c is None else str(c) for c in r])) for r in rows[1:]]
+    return [{(k or '').strip().lower(): v for k, v in r.items()} for r in sniff_reader(path)]
+
+
+def tidy(s):
+    s = s.replace('\r\n', '\n').replace('\n', ' ').replace('\u00a0', ' ')
+    s = re.sub(r'\s+', ' ', s)
+    return re.sub(r'\s*([|¶])\s*', r'\1', s).strip()
+
+
+def cmd_import(args):
+    items = collect()
+    rows = read_table(args.file)
+    new, notes = {}, []
+    for r in rows:
+        k = (r.get('chiave') or '').strip()
+        if not k:
+            continue
+        if k not in items:
+            notes.append('chiave sconosciuta (ignorata): ' + k)
+            continue
+        en = tidy(r.get('inglese') or '')
+        if not en:
+            continue
+        new[k] = en
+        it = items[k]
+        # la colonna italiana del file non viene usata: si segnala solo se differisce davvero dal sito (a parte maiuscole/minuscole)
+        file_it = tidy(r.get('italiano') or '')
+        if file_it and re.sub(r'\W+', '', file_it.lower()) != re.sub(r'\W+', '', it.lower()):
+            notes.append('%s: l\'italiano nel file è diverso da quello del sito (si usa quello del sito)' % k)
+        if en != SAME:
+            if sorted(re.findall(r'\{\w+\}', it)) != sorted(re.findall(r'\{\w+\}', en)):
+                notes.append('%s: segnaposto {…} diversi dall\'italiano: «%s»' % (k, en))
+            if it.count('¶') != en.count('¶'):
+                notes.append('%s: i paragrafi (¶) sono %d, in italiano %d' % (k, en.count('¶'), it.count('¶')))
+    missing = [k for k in items if k not in new]
+    old = read_translations()
+    merged = dict(old)
+    merged.update(new)
+    write_csv(items, merged)
+    print('importate %d traduzioni da %s -> %s' % (len(new), os.path.basename(args.file), os.path.relpath(CSV_PATH, ROOT)))
+    if missing:
+        print('senza traduzione nel file (resta quella già nel CSV, se c\'era):', ', '.join(missing))
+    for n in notes:
+        print('ATTENZIONE:', n)
 
 
 # ---------------------------------------------------------------- build
@@ -310,12 +373,14 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest='cmd', required=True)
     sub.add_parser('export', help='crea/aggiorna i18n/traduzioni.csv')
+    i = sub.add_parser('import', help='carica le traduzioni da un .xlsx o .csv rivisto')
+    i.add_argument('file', help='file .xlsx o .csv con le colonne chiave e inglese')
     b = sub.add_parser('build', help='crea en/index.html dalle traduzioni')
     b.add_argument('--out', default='_site', help='cartella del sito (default: _site)')
     b.add_argument('--strict', action='store_true', help='errore se manca qualche traduzione')
     args = ap.parse_args()
     try:
-        {'export': cmd_export, 'build': cmd_build}[args.cmd](args)
+        {'export': cmd_export, 'import': cmd_import, 'build': cmd_build}[args.cmd](args)
     except Err as e:
         sys.exit('ERRORE: %s' % e)
 

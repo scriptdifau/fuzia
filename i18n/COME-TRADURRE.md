@@ -23,6 +23,8 @@ Si lavora su un solo file: `traduzioni.csv` (in questa cartella). Si apre con **
 ## Come consegnare il file
 Salva il file come **CSV** (con Excel: «CSV UTF-8 (delimitato da virgole)» o «delimitato dal punto e virgola»; con Google Sheets: File → Scarica → CSV) con lo stesso nome, `traduzioni.csv`, e caricalo nel repository GitHub nella cartella `i18n/` (Add file → Upload files), sostituendo quello esistente. Dopo il caricamento il sito si aggiorna da solo in circa un minuto: la versione inglese compare su `/en/` e in alto a destra appare il selettore **IT | EN**.
 
+Le maiuscole nei titoli grandi non cambiano l'aspetto: sul sito i titoli sono sempre mostrati in maiuscolo. Contano solo per gli screen reader e per Google, quindi si può scrivere «The Strength of Presence» come si preferisce.
+
 ## Cosa non si traduce da questo file
 - Le **news** della sezione Stampa (si gestiscono da `/admin/`).
 - Il testo scritto **dentro il video** in alto («Ogni intuizione nasce da un movimento»): serve una versione inglese del video.

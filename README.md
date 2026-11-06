@@ -39,6 +39,16 @@ Le card della sezione "Stampa" si leggono dalla tabella `news` del progetto Supa
 - **Le versioni leggere si creano da sole** a ogni pubblicazione (passo "Crea le versioni leggere delle foto" in `.github/workflows/pages.yml`, che usa `tools/make-variants.py`): per cambiare una foto basta sostituire l'originale mantenendo il nome. Se `index.html` cita una `-900` che non esiste, la pubblicazione si ferma e il sito resta com'è. Per provare il sito in locale: `python tools/make-variants.py` (serve Pillow).
 - Video hero: parte a pagina caricata e non con risparmio dati/rete lenta (resta la locandina, parte con un tocco). Su telefono (≤ 800 px) usa `assets/video/hero-mobile.mp4` (720p, ~12 MB, attributo `data-src-mobile` sul `<video>`); se non carica, si torna a `hero.mp4`. Per rifarlo: HandBrake, 720p, H.264, ~900 kbps in 2 passaggi, "Ottimizzato per il web"; se l'indice è in fondo al file (non ottimizzato) basta `python tools/faststart.py assets/video/hero-mobile.mp4` (senza ricodificare).
 
+## Versione inglese
+- I testi traducibili sono marcati in `index.html` con `data-i18n="chiave"` (testo) o `data-i18n-attr="attributo:chiave"` (es. segnaposto, descrizioni); i messaggi di `js/main.js` sono scritti `T(chiave, testo italiano)`.
+- **Elenco da tradurre**: `i18n/traduzioni.csv` (chiave ; contesto ; italiano ; inglese). Chi traduce compila solo la colonna `inglese`; istruzioni in `i18n/COME-TRADURRE.md` (`|` = a capo, `¶` = nuovo paragrafo, `=` = uguale all'italiano).
+- **Caricamento**: si sostituisce `i18n/traduzioni.csv` nel repo. A ogni pubblicazione `tools/i18n.py build` crea `en/index.html` (indirizzi relativi alla radice con `<base href="../">`) e rende visibile il selettore IT | EN. Senza traduzioni la pagina inglese non viene creata e il selettore resta nascosto. Celle vuote: resta l'italiano, e il log di pubblicazione elenca le mancanti.
+- I titoli grandi che in inglese escono dalla pagina si rimpiccioliscono da soli (`--fit`, in `js/main.js`).
+- **Caricare una traduzione rivista** (.xlsx o .csv con le colonne `chiave` e `inglese`): `python tools/i18n.py import FILE` aggiorna `i18n/traduzioni.csv` usando solo la colonna `inglese` (la colonna italiana del file non viene usata) e segnala segnaposto o paragrafi che non corrispondono. Per leggere un .xlsx serve `pip install openpyxl`.
+- **Se si cambia un testo italiano o se ne aggiunge uno**: `python tools/i18n.py export` (aggiorna il CSV mantenendo le traduzioni esistenti). Anteprima locale della pagina inglese: `python tools/i18n.py build --out .` e aprire `/en/` (la cartella `en/` non va committata).
+- **Bozza di traduzione inglese**: `i18n/bozza-traduzione-en.csv` (con una colonna `note`). Non viene usata dal sito: per adottarla, dopo la revisione, si copia come `i18n/traduzioni.csv` (la colonna `note` è ignorata) e dal merge successivo la pagina `/en/` esce online.
+- Non tradotti da questo sistema: le news (Stampa) e il testo scritto dentro il video.
+
 ## Pubblicazione di prova (GitHub Pages)
 1. Unisci il lavoro nel ramo `main`.
 2. Su GitHub: Settings → Pages → Source: **GitHub Actions**.

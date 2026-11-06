@@ -1,6 +1,10 @@
 (function () {
   'use strict';
 
+  /* Testi mostrati dallo script: T(chiave, testo italiano). Nella pagina inglese window.FUZIA_STR contiene le traduzioni
+     (generate da tools/i18n.py da i18n/traduzioni.csv); senza traduzione resta l'italiano. */
+  var T = function (key, fallback) { var s = window.FUZIA_STR; return (s && s[key]) || fallback; };
+
   /* ---- Video hero: parte da solo (senza audio, come richiedono i browser) ----
      Pulsante in basso a destra per attivare/disattivare l'audio; un clic sul video lo mette in pausa. */
   var hero = document.getElementById('hero');
@@ -25,7 +29,7 @@
     sound.addEventListener('click', function () {
       video.muted = !video.muted;
       sound.setAttribute('aria-pressed', !video.muted);
-      sound.setAttribute('aria-label', video.muted ? "Attiva l'audio" : "Disattiva l'audio");
+      sound.setAttribute('aria-label', video.muted ? T('js.audio_on', "Attiva l'audio") : T('js.audio_off', "Disattiva l'audio"));
       if (video.paused && !calm) { video.play(); }
     });
     video.addEventListener('click', function () { if (video.paused) { video.play(); } else { video.pause(); } });
@@ -61,12 +65,12 @@
     }
     slides.forEach(function (_, i) {
       var b = document.createElement('button');
-      b.type = 'button'; b.setAttribute('aria-label', 'Foto ' + (i + 1));
+      b.type = 'button'; b.setAttribute('aria-label', T('js.foto_n', 'Foto {n}').replace('{n}', i + 1));
       b.addEventListener('click', function () { show(i); restart(); });
       dots.appendChild(b);
     });
     // frecce ai lati della foto
-    [['prev', -1, 'Foto precedente', 'M14 5l-7 7 7 7'], ['next', 1, 'Foto successiva', 'M10 5l7 7-7 7']].forEach(function (a) {
+    [['prev', -1, T('js.foto_prec', 'Foto precedente'), 'M14 5l-7 7 7 7'], ['next', 1, T('js.foto_succ', 'Foto successiva'), 'M10 5l7 7-7 7']].forEach(function (a) {
       var b = document.createElement('button');
       b.type = 'button'; b.className = 'slider__arrow slider__arrow--' + a[0]; b.setAttribute('aria-label', a[2]);
       b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + a[3] + '" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -136,7 +140,7 @@
           if (url) {
             var more = el('a', 'news__more');
             more.href = url; more.target = '_blank'; more.rel = 'noopener noreferrer';
-            more.setAttribute('aria-label', 'Leggi l’articolo: ' + (it.titolo || it.testata || ''));
+            more.setAttribute('aria-label', T('js.leggi', 'Leggi l’articolo: {titolo}').replace('{titolo}', it.titolo || it.testata || ''));
             card.appendChild(more);
           }
           newsList.appendChild(card);
@@ -144,6 +148,36 @@
         if (items.length) { newsList.closest('.news').hidden = false; }
       })
       .catch(function () { /* senza news la sezione resta nascosta */ });
+  }
+
+  /* ---- Titoli lunghi (soprattutto in inglese) ----
+     Se una riga di un titolo esce dalla pagina, il corpo carattere si riduce quanto basta (variabile --fit, vedi css). */
+  var bigTitles = document.querySelectorAll('h2.t:not(.t--sm), p.t');
+  var pageEl = document.querySelector('.page');
+  function fitTitles() {
+    var pr = pageEl.getBoundingClientRect(), limit = pr.right - Math.max(12, pr.width * 0.015);
+    Array.prototype.forEach.call(bigTitles, function (h) {
+      h.style.removeProperty('--fit');
+      var left = Infinity, right = 0;
+      Array.prototype.forEach.call(h.querySelectorAll('.l'), function (l) {
+        var r = document.createRange(); r.selectNodeContents(l);
+        var b = r.getBoundingClientRect();
+        if (b.width) { left = Math.min(left, b.left); right = Math.max(right, b.right); }
+      });
+      Array.prototype.forEach.call(h.querySelectorAll('.bx'), function (x) {
+        var b = x.getBoundingClientRect();
+        left = Math.min(left, b.left); right = Math.max(right, b.right);
+      });
+      if (right > limit && right > left) { h.style.setProperty('--fit', Math.max(0.5, (limit - left) / (right - left)).toFixed(3)); }
+    });
+  }
+  if (pageEl && bigTitles.length) {
+    var fitTimer;
+    var fitSoon = function () { clearTimeout(fitTimer); fitTimer = setTimeout(fitTitles, 120); };
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fitTitles); }
+    window.addEventListener('load', fitTitles);
+    window.addEventListener('resize', fitSoon);
+    fitTitles();
   }
 
   /* ---- Modulo contatti ----
@@ -154,17 +188,17 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       if (form.sito.value) { return; }            // anti-spam (honeypot)
-      if (!form.checkValidity()) { msg.textContent = 'Compila nome, email e messaggio.'; return; }
+      if (!form.checkValidity()) { msg.textContent = T('js.form_compila', 'Compila nome, email e messaggio.'); return; }
       var data = new FormData(form);
       var endpoint = form.getAttribute('data-endpoint');
       if (endpoint) {
         fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-          .then(function (r) { if (!r.ok) { throw new Error(); } form.reset(); msg.textContent = 'Messaggio inviato. Grazie!'; })
-          .catch(function () { msg.textContent = 'Invio non riuscito. Scrivi a ' + form.getAttribute('data-to'); });
+          .then(function (r) { if (!r.ok) { throw new Error(); } form.reset(); msg.textContent = T('js.form_ok', 'Messaggio inviato. Grazie!'); })
+          .catch(function () { msg.textContent = T('js.form_ko', 'Invio non riuscito. Scrivi a {email}').replace('{email}', form.getAttribute('data-to')); });
       } else {
-        var body = 'Nome: ' + data.get('nome') + '\nEmail: ' + data.get('email') + '\n\n' + data.get('messaggio');
+        var body = T('js.mail_nome', 'Nome') + ': ' + data.get('nome') + '\n' + T('js.mail_email', 'Email') + ': ' + data.get('email') + '\n\n' + data.get('messaggio');
         window.location.href = 'mailto:' + form.getAttribute('data-to') +
-          '?subject=' + encodeURIComponent(data.get('oggetto') || 'Contatto dal sito') + '&body=' + encodeURIComponent(body);
+          '?subject=' + encodeURIComponent(data.get('oggetto') || T('js.mail_oggetto', 'Contatto dal sito')) + '&body=' + encodeURIComponent(body);
       }
     });
   }

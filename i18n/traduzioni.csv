@@ -45,7 +45,6 @@ js.audio_off;Video in alto · pulsante audio acceso, descrizione (non visibile);
 js.foto_n;Slider foto · descrizione dei pallini ({n} = numero, da lasciare);Foto {n};Photo {n}
 js.foto_prec;Slider foto · freccia sinistra, descrizione (non visibile);Foto precedente;Previous photo
 js.foto_succ;Slider foto · freccia destra, descrizione (non visibile);Foto successiva;Next photo
-js.leggi;Stampa · descrizione del pulsante + ({titolo} = titolo della news, da lasciare);Leggi l’articolo: {titolo};Read the article: {titolo}
 js.form_compila;Contatti · messaggio se mancano campi;Compila nome, email e messaggio.;Please fill in your name, email and message.
 js.form_ok;Contatti · messaggio dopo l'invio;Messaggio inviato. Grazie!;Message sent. Thank you!
 js.form_ko;Contatti · messaggio se l'invio fallisce ({email} = indirizzo, da lasciare);Invio non riuscito. Scrivi a {email};Your message could not be sent. Please write to {email}

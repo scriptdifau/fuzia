@@ -68,7 +68,7 @@ CONTEXT = {
     'atelier.t1': 'L\'esperienza in atelier · titolo, riga 1',
     'atelier.t2': 'L\'esperienza in atelier · titolo, riga 2',
     'atelier.testo': 'L\'esperienza in atelier · paragrafo (a metà c\'è un nuovo paragrafo)',
-    'stampa.titolo': 'Stampa · titolo della sezione (non visibile, per screen reader)',
+    'stampa.titolo': 'Stampa · titolo della sezione delle notizie (visibile sopra le card)',
     'contatti.titolo': 'Contatti · titolo del modulo',
     'contatti.nome': 'Contatti · campo «Nome» (etichetta e segnaposto)',
     'contatti.email': 'Contatti · campo «Email» (etichetta e segnaposto)',

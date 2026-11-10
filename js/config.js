@@ -5,5 +5,5 @@ window.FUZIA = {
   supabaseUrl: 'https://kmjaocqnzkqdfcgymbcl.supabase.co',
   supabaseKey: 'sb_publishable_XhwHB9QessJIcCSOb1PB0A_QQHw63PA',
   // Cloudflare Web Analytics (statistiche senza cookie): incollare qui il token del sito (Cloudflare → Web Analytics → Add a site → JS snippet). Vuoto = nessuna statistica.
-  cfAnalyticsToken: ''
+  cfAnalyticsToken: '1b7bafb476ed4d93ae0396abad4d1579'
 };

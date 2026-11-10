@@ -137,12 +137,6 @@
           wrap.appendChild(document.createTextNode(it.titolo || ''));
           card.appendChild(head);
           if (it.descrizione) { card.appendChild(el('p', 'news__text', it.descrizione)); }
-          if (url) {
-            var more = el('a', 'news__more');
-            more.href = url; more.target = '_blank'; more.rel = 'noopener noreferrer';
-            more.setAttribute('aria-label', T('js.leggi', 'Leggi l’articolo: {titolo}').replace('{titolo}', it.titolo || it.testata || ''));
-            card.appendChild(more);
-          }
           newsList.appendChild(card);
         });
         if (items.length) { newsList.closest('.news').hidden = false; }

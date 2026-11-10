@@ -61,11 +61,11 @@ Le card della sezione "Stampa" si leggono dalla tabella `news` del progetto Supa
 2. Su GitHub: Settings → Pages → Source: **GitHub Actions**.
 3. A ogni push su `main` il sito si aggiorna: `https://scriptdifau.github.io/fuzia/`
 
-Il sito di prova ha `noindex` (non compare su Google).
+Al lancio `noindex` è stato tolto da home e pagine privacy/cookie (resta solo su `/admin/`).
 
 **Cache**: a ogni pubblicazione il workflow aggiunge `?v=<codice>` ai riferimenti a stili, script e immagini, così il browser non usa copie vecchie. La pagina `index.html` può però restare in cache fino a ~10 minuti: dopo un aggiornamento ricarica con Ctrl+Maiusc+R (Cmd+Maiusc+R su Mac) o apri una finestra privata.
 
 ## Passaggio all'hosting definitivo
-1. In `index.html` elimina la riga `<meta name="robots" content="noindex, nofollow">`.
+1. (Già fatto al lancio) `noindex` tolto dalle pagine pubbliche.
 2. Carica via FTP `index.html`, `css/`, `js/`, `assets/` nella radice del sito (non servono `design/`, `.github/`, `README.md`).
 3. Aggiungi cookie banner/privacy (es. iubenda) e analytics solo se richiesti.

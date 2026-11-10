@@ -5,7 +5,7 @@ Aggiornato al 20 ottobre 2026. Serve per riprendere il lavoro in una nuova sessi
 ## Stato attuale
 - Sito a pagina singola in HTML, CSS e JS, senza strumenti di compilazione. Online (prova) su https://scriptdifau.github.io/fuzia/.
 - Si pubblica da solo a ogni unione in `main` (GitHub Actions, `.github/workflows/pages.yml`). Dopo un aggiornamento la pagina può restare vecchia in cache circa 10 minuti: ricaricare con Ctrl+Shift+R o aprire una finestra privata.
-- `index.html` contiene `<meta name="robots" content="noindex, nofollow">`: **toglierlo al lancio**.
+- Al lancio `noindex` è stato tolto dalle pagine pubbliche (resta su `/admin/`).
 - Video dell'hero: `assets/video/hero.mp4` (provvisorio, 12 MB), parte da solo senza audio, con pulsante audio. Oltre i 1920 px di schermo occupa tutta la larghezza.
 - Foto: 23 sostituite con le versioni ritoccate del 20 ottobre (vedi tabella sotto).
 

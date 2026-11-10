@@ -10,7 +10,7 @@
   var cfToken = (window.FUZIA || {}).cfAnalyticsToken;
   if (cfToken && !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)) {
     var cf = document.createElement('script');
-    cf.defer = true; cf.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    cf.type = 'module'; cf.src = 'https://static.cloudflareinsights.com/beacon.min.js';
     cf.setAttribute('data-cf-beacon', JSON.stringify({ token: cfToken }));
     document.head.appendChild(cf);
   }

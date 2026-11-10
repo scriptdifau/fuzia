@@ -49,6 +49,13 @@ Le card della sezione "Stampa" si leggono dalla tabella `news` del progetto Supa
 - **Bozza di traduzione inglese**: `i18n/bozza-traduzione-en.csv` (con una colonna `note`). Non viene usata dal sito: per adottarla, dopo la revisione, si copia come `i18n/traduzioni.csv` (la colonna `note` è ignorata) e dal merge successivo la pagina `/en/` esce online.
 - Non tradotti da questo sistema: le news (Stampa) e il testo scritto dentro il video.
 
+## Privacy e cookie
+- Pagine `privacy/` e `cookie/` (italiano) ed `en/privacy/`, `en/cookie/` (inglese): HTML statico, stile in `css/legal.css`. Titolare: Jammali Faouzia, corso Racconigi 10, 10138 Torino, info@fuziajammali.com. **Testi in bozza, da far validare dal consulente prima della pubblicazione definitiva.**
+- Il modulo di contatto apre il programma di posta (`data-endpoint` vuoto): i dati non passano da server del sito, e l'informativa lo dice. **Se si collega un servizio esterno (es. Formspree), l'informativa va aggiornata** (nuovo destinatario, eventuale trasferimento extra UE).
+- Il sito non usa cookie né local storage né analisi statistiche, quindi non c'è il banner del consenso. **Se si aggiunge uno strumento di analisi (es. Cloudflare Web Analytics) o altri servizi di terzi, vanno aggiornate privacy e cookie policy** e va valutato se serve il consenso preventivo.
+- Link a privacy e cookie: nel footer e sotto il modulo (voci `footer.*` e `contatti.privacy*` in `i18n/traduzioni.csv`; per la pagina inglese l'indirizzo è `en/privacy/`, `en/cookie/`).
+- Da aggiornare quando cambiano: hosting (oggi GitHub Pages), regione/fornitore del database (Supabase), servizio di posta, periodo di conservazione dei messaggi (24 mesi ipotizzati). Mancano ancora partita IVA ed eventuali altri dati societari da mostrare nel footer.
+
 ## Pubblicazione di prova (GitHub Pages)
 1. Unisci il lavoro nel ramo `main`.
 2. Su GitHub: Settings → Pages → Source: **GitHub Actions**.

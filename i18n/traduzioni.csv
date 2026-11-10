@@ -40,7 +40,14 @@ contatti.email;Contatti · campo «Email» (etichetta e segnaposto);Email;Email
 contatti.oggetto;Contatti · campo «Oggetto» (etichetta e segnaposto);Oggetto;Subject
 contatti.messaggio;Contatti · etichetta del campo messaggio (non visibile);Messaggio;Message
 contatti.messaggio_ph;Contatti · segnaposto del campo messaggio;Scrivi qui il tuo messaggio;Write your message here
+contatti.privacy;Contatti · avviso sotto il modulo (prima del link all'informativa);I dati inseriti saranno usati solo per rispondere alla tua richiesta.;The data you enter will only be used to reply to your request.
+contatti.privacy_link;Contatti · testo del link all'informativa privacy;Informativa privacy;Privacy notice
+contatti.privacy_url;Contatti · INDIRIZZO della pagina privacy (non è un testo: in inglese en/privacy/);privacy/;en/privacy/
 contatti.invia;Contatti · pulsante di invio;Invia;Send
+footer.privacy;Fondo pagina · link «Privacy Policy»;Privacy Policy;Privacy Policy
+footer.privacy_url;Fondo pagina · INDIRIZZO della pagina privacy (non è un testo: in inglese en/privacy/);privacy/;en/privacy/
+footer.cookie;Fondo pagina · link «Cookie Policy»;Cookie Policy;Cookie Policy
+footer.cookie_url;Fondo pagina · INDIRIZZO della pagina cookie (non è un testo: in inglese en/cookie/);cookie/;en/cookie/
 js.audio_off;Video in alto · pulsante audio acceso, descrizione (non visibile);Disattiva l'audio;Turn sound off
 js.foto_n;Slider foto · descrizione dei pallini ({n} = numero, da lasciare);Foto {n};Photo {n}
 js.foto_prec;Slider foto · freccia sinistra, descrizione (non visibile);Foto precedente;Previous photo

@@ -1,0 +1,16 @@
+body.legal-page{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-weight:300;font-size:16px;line-height:1.65}
+.legal-wrap{max-width:760px;margin:0 auto;padding:24px 20px 72px}
+.legal-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0 20px;border-bottom:1px solid #d9d9d6}
+.legal-top img{height:48px;width:auto}
+.legal-top .lang-link{font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:8px 4px}
+.legal-top .lang-link:hover{text-decoration:underline}
+.legal-wrap h1{font-family:var(--font-title);font-weight:400;font-size:clamp(28px,5vw,44px);text-transform:uppercase;letter-spacing:.03em;line-height:1.15;margin:40px 0 8px}
+.legal-wrap .lead{margin:0 0 32px;color:#444}
+.legal-wrap h2{font-weight:600;font-size:19px;line-height:1.35;margin:36px 0 8px}
+.legal-wrap h3{font-weight:600;font-size:16px;margin:24px 0 6px}
+.legal-wrap p,.legal-wrap ul{margin:0 0 14px}
+.legal-wrap ul{padding-left:22px}
+.legal-wrap li{margin-bottom:6px}
+.legal-wrap a{text-underline-offset:.18em}
+.legal-nav{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:48px;padding-top:20px;border-top:1px solid #d9d9d6;font-size:14px}
+@media (max-width:600px){.legal-wrap{padding:16px 16px 56px}.legal-top img{height:40px}}

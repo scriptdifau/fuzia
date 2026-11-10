@@ -11,7 +11,9 @@
 Thumbs.db
 node_modules/
 # versione inglese e cartelle di prova generate da tools/i18n.py (si creano a ogni pubblicazione)
-en/
+/en/*
+!/en/privacy/
+!/en/cookie/
 _site/
 _preview/
 __pycache__/

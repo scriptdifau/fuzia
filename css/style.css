@@ -153,7 +153,7 @@ blockquote.body{margin:0}
 .foot__photo{position:absolute;right:0;top:0;height:100%;width:calc(197*var(--u) + var(--ox));object-fit:cover;object-position:center top;
   -webkit-mask-image:linear-gradient(to right,transparent,#000 30%);mask-image:linear-gradient(to right,transparent,#000 30%)}
 .t--sm{letter-spacing:.06em}
-.form{position:relative;height:calc(170*var(--u))}
+.form{position:relative;height:calc(198*var(--u))}
 .form label{display:block}
 .form input:not(.hp),.form textarea{display:block;width:100%;height:calc(32*var(--u));margin:0 0 calc(9*var(--u));padding:calc(12*var(--u)) 0 0;
   background:transparent;border:0;border-bottom:calc(.8*var(--u)) solid #6f6f6d;border-radius:0;resize:none;overflow:hidden;
@@ -163,7 +163,12 @@ blockquote.body{margin:0}
 .form button{position:absolute;right:0;top:calc(140*var(--u));padding:calc(2*var(--u)) 0;border:0;background:none;color:var(--bg);
   font:400 calc(10*var(--u))/1 var(--font-title);letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
 .form button:hover{text-decoration:underline}
-.form__msg{position:absolute;left:0;top:calc(163*var(--u));margin:0;font-size:calc(1cqw*var(--k));letter-spacing:.08em}
+.form__msg{position:absolute;left:0;top:calc(190*var(--u));margin:0;font-size:calc(1cqw*var(--k));letter-spacing:.08em}
+.form__note{position:absolute;left:0;right:0;top:calc(163*var(--u));margin:0;font-size:max(10px,calc(.9cqw*var(--k)));line-height:1.45;letter-spacing:.04em;color:#cfcfcd}
+.form__note a,.legal a{color:inherit;text-underline-offset:.2em}
+.legal{margin:0;font-size:max(10px,calc(.9cqw*var(--k)));letter-spacing:.06em;color:#cfcfcd;white-space:nowrap}
+.legal a{text-decoration:none}
+.legal a:hover,.legal a:focus-visible{text-decoration:underline}
 .hp{position:absolute;left:-9999px;opacity:0}
 .social{display:flex;gap:calc(14*var(--u))}
 .ic{display:block;width:calc(14*var(--u));height:calc(14*var(--u));background:currentColor;
@@ -247,15 +252,17 @@ figure.bleed-l{left:0;width:calc(var(--w)*var(--u) + var(--ox))}
   .news__head{margin-top:calc(16*var(--u))}
   
   /* footer */
-  .form{height:calc(270*var(--um))}
+  .form{height:calc(330*var(--um))}
   .form input:not(.hp),.form textarea{height:calc(46*var(--um));margin-bottom:calc(8*var(--um));padding-top:calc(16*var(--um));
     font-size:calc(13*var(--um));border-bottom-width:1px}
   .form button{top:calc(226*var(--um));font-size:calc(14*var(--um))}
-  .form__msg{top:calc(252*var(--um));font-size:calc(11*var(--um))}
+  .form__msg{top:calc(302*var(--um));font-size:calc(11*var(--um))}
+  .form__note{top:calc(254*var(--um));font-size:calc(10.5*var(--um))}
+  .legal{font-size:calc(10.5*var(--um));white-space:normal}
   .social{gap:calc(22*var(--um))}
   .ic{width:calc(24*var(--um));height:calc(24*var(--um))}
   .mail{font-size:calc(11*var(--um));top:calc(var(--my)*var(--um))}
-  .foot__photo{left:0;right:auto;top:calc(540*var(--um));width:100%;height:calc(440*var(--um));object-position:center 35%;
+  .foot__photo{left:0;right:auto;top:calc(700*var(--um));width:100%;height:calc(440*var(--um));object-position:center 35%;
     -webkit-mask-image:linear-gradient(to bottom,transparent,#000 30%);mask-image:linear-gradient(to bottom,transparent,#000 30%)}
 }
 

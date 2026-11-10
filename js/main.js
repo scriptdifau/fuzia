@@ -5,6 +5,16 @@
      (generate da tools/i18n.py da i18n/traduzioni.csv); senza traduzione resta l'italiano. */
   var T = function (key, fallback) { var s = window.FUZIA_STR; return (s && s[key]) || fallback; };
 
+  /* ---- Statistiche (Cloudflare Web Analytics, senza cookie) ----
+     Si attivano solo con il token in js/config.js e non in locale; vedi privacy/ e cookie/. */
+  var cfToken = (window.FUZIA || {}).cfAnalyticsToken;
+  if (cfToken && !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)) {
+    var cf = document.createElement('script');
+    cf.defer = true; cf.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    cf.setAttribute('data-cf-beacon', JSON.stringify({ token: cfToken }));
+    document.head.appendChild(cf);
+  }
+
   /* ---- Video hero: parte da solo (senza audio, come richiedono i browser) ----
      Pulsante in basso a destra per attivare/disattivare l'audio; un clic sul video lo mette in pausa. */
   var hero = document.getElementById('hero');

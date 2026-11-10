@@ -3,5 +3,7 @@
    NON inserire qui la chiave "secret" / "service_role". */
 window.FUZIA = {
   supabaseUrl: 'https://kmjaocqnzkqdfcgymbcl.supabase.co',
-  supabaseKey: 'sb_publishable_XhwHB9QessJIcCSOb1PB0A_QQHw63PA'
+  supabaseKey: 'sb_publishable_XhwHB9QessJIcCSOb1PB0A_QQHw63PA',
+  // Cloudflare Web Analytics (statistiche senza cookie): incollare qui il token del sito (Cloudflare → Web Analytics → Add a site → JS snippet). Vuoto = nessuna statistica.
+  cfAnalyticsToken: ''
 };

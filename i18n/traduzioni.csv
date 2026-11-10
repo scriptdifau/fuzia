@@ -33,7 +33,7 @@ certi.fascia3;Certi incontri accadono · testo sulle bande nere, riga 3;pelle. E
 atelier.t1;L'esperienza in atelier · titolo, riga 1;L’esperienza;The Atelier
 atelier.t2;L'esperienza in atelier · titolo, riga 2;in atelier;Experience
 atelier.testo;L'esperienza in atelier · paragrafo (a metà c'è un nuovo paragrafo);Si entra da una piccola porta, come|quella di un giardino segreto. Dall’altra|parte, ad accoglierti, c’è un mondo|riservato, discreto, intimo, dove si trova|soprattutto quello che non ci si aspetta.¶Ci si può togliere le scarpe e cambiarsi|ovunque, senza cerimonie, come a casa di|un’amica. E mentre si provano gli abiti, ci|si spoglia anche dei pensieri, della|fretta, dei problemi che si portano|addosso. L’abito perfetto lo si incontra|quasi per caso, perché davanti a questo|specchio c’è la possibilità di scoprire|un’altra parte di sé.;You enter through a small door, like|the door to a secret garden. On the|other side, a private, discreet, intimate|world welcomes you, a place where you|find, above all, the unexpected.¶You can take off your shoes and change|anywhere, without ceremony, as you would|at a friend’s home. And as you try on|the clothes, you also shed your thoughts,|your haste, the worries you carry|with you. You encounter the perfect dress|almost by chance, because in front of this|mirror you may discover|another part of yourself.
-stampa.titolo;Stampa · titolo della sezione (non visibile, per screen reader);Stampa;Press
+stampa.titolo;Stampa · titolo della sezione delle notizie (visibile sopra le card);Press;Press
 contatti.titolo;Contatti · titolo del modulo;Contattami;Contact me
 contatti.nome;Contatti · campo «Nome» (etichetta e segnaposto);Nome;Name
 contatti.email;Contatti · campo «Email» (etichetta e segnaposto);Email;Email

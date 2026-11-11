@@ -93,7 +93,9 @@
   }
 
   /* --- Gruppi di foto (Struttura, Atelier; solo telefono): le foto scorrono a velocità diverse e si sovrappongono ---
-     Ogni foto ha data-drift (fattore, anche negativo): spostamento = distanza del gruppo dal centro dello schermo × fattore. */
+     Ogni foto ha data-drift (fattore, anche negativo): spostamento = distanza del gruppo dal centro dello schermo × fattore,
+     limitato a ±56px (data-drift-down = tetto verso il basso, opzionale; data-drift-x = scivolamento laterale).
+     Le foto piccole non si muovono da sole: restano attaccate alla foto grande accanto (stesso fattore) o ferme. */
   var drift = Array.prototype.slice.call(document.querySelectorAll('[data-drift]'));
   if (drift.length) {
     var DMAX = 56, dQ = false;
@@ -104,8 +106,11 @@
       drift.forEach(function (f) {
         var ref = f.parentElement.getBoundingClientRect();                 // il gruppo non è spostato da noi
         var d = ref.top + ref.height / 2 - window.innerHeight / 2;
-        var off = on ? Math.max(-DMAX, Math.min(DMAX, d * parseFloat(f.getAttribute('data-drift')))) : 0;
-        f.style.translate = off ? '0 ' + off.toFixed(1) + 'px' : '';
+        var down = f.hasAttribute('data-drift-down') ? parseFloat(f.getAttribute('data-drift-down')) : DMAX;   // tetto verso il basso (per non coprire i testi sotto)
+        var off = on ? Math.max(-DMAX, Math.min(down, d * parseFloat(f.getAttribute('data-drift')))) : 0;
+        var fx = f.getAttribute('data-drift-x');                         // scivolamento laterale (solo verso sinistra, max 28px)
+        var ox = on && fx ? Math.max(-28, Math.min(0, d * parseFloat(fx))) : 0;
+        f.style.translate = (off || ox) ? ox.toFixed(1) + 'px ' + off.toFixed(1) + 'px' : '';
       });
     };
     var driftSoon = function () { if (!dQ) { dQ = true; requestAnimationFrame(driftUpdate); } };

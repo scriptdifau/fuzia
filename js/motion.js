@@ -94,11 +94,11 @@
 
   /* --- Gruppi di foto (Struttura, Atelier; solo telefono): le foto scorrono a velocità diverse e si sovrappongono ---
      Ogni foto ha data-drift (fattore, anche negativo): spostamento = distanza del gruppo dal centro dello schermo × fattore,
-     limitato a ±56px (data-drift-down = tetto verso il basso, opzionale; data-drift-x = scivolamento laterale).
+     limitato a ±28px (data-drift-down = tetto verso il basso, opzionale; data-drift-x = scivolamento laterale).
      Le foto piccole non si muovono da sole: restano attaccate alla foto grande accanto (stesso fattore) o ferme. */
   var drift = Array.prototype.slice.call(document.querySelectorAll('[data-drift]'));
   if (drift.length) {
-    var DMAX = 56, dQ = false;
+    var DMAX = 28, dQ = false;
     var dCalm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var driftUpdate = function () {
       dQ = false;

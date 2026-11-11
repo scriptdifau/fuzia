@@ -36,6 +36,8 @@ SAME = '='                                   # "inglese uguale all'italiano"
 
 CONTEXT = {
     'meta.titolo': 'Pagina · titolo della scheda del browser (e di Google)',
+    'meta.url': 'Pagina · indirizzo ufficiale della pagina (Google, condivisioni): lasciare com’è per l’italiano; per l’inglese .../en/',
+    'meta.locale': 'Pagina · lingua per le condivisioni (it_IT / en_GB)',
     'meta.descrizione': 'Pagina · breve descrizione per Google (non visibile nel sito)',
     'testata.logo': 'Testata · descrizione del logo per screen reader (non visibile)',
     'hero.aria': 'Video in alto · descrizione per screen reader (non visibile)',

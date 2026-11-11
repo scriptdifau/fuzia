@@ -92,6 +92,29 @@
     parUpdate();
   }
 
+  /* --- Atelier (solo telefono): le foto scorrono a velocità diverse e si sovrappongono ---
+     Ogni foto ha data-drift (fattore, anche negativo): spostamento = distanza del gruppo dal centro dello schermo × fattore. */
+  var drift = Array.prototype.slice.call(document.querySelectorAll('[data-drift]'));
+  if (drift.length) {
+    var DMAX = 56, dQ = false;
+    var dCalm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var driftUpdate = function () {
+      dQ = false;
+      var on = !dCalm && window.innerWidth <= 800;
+      var ref = drift[0].parentElement.getBoundingClientRect();           // il gruppo non è spostato da noi
+      var d = ref.top + ref.height / 2 - window.innerHeight / 2;
+      drift.forEach(function (f) {
+        var off = on ? Math.max(-DMAX, Math.min(DMAX, d * parseFloat(f.getAttribute('data-drift')))) : 0;
+        f.style.translate = off ? '0 ' + off.toFixed(1) + 'px' : '';
+      });
+    };
+    var driftSoon = function () { if (!dQ) { dQ = true; requestAnimationFrame(driftUpdate); } };
+    window.addEventListener('scroll', driftSoon, { passive: true });
+    window.addEventListener('resize', driftSoon);
+    window.addEventListener('load', driftUpdate);
+    driftUpdate();
+  }
+
   /* --- video/immagine hero: leggero parallasse (solo desktop) --- */
   var hero = document.getElementById('hero');
   var poster = hero && hero.querySelector('.hero__poster');

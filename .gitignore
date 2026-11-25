@@ -17,3 +17,6 @@ node_modules/
 _site/
 _preview/
 __pycache__/
+
+# consegne locali (guida Word ecc.)
+/consegna/

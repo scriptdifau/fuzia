@@ -36,7 +36,7 @@ jobs:
       - name: Prepara i file del sito
         run: |
           mkdir _site
-          rsync -a --exclude '.git' --exclude '.github' --exclude 'design' --exclude 'tools' --exclude 'i18n' --exclude '_site' --exclude 'README.md' --exclude '.gitignore' ./ _site/
+          rsync -a --exclude '.git' --exclude '.github' --exclude 'design' --exclude 'tools' --exclude 'i18n' --exclude '_site' --exclude 'README.md' --exclude 'PROMEMORIA.md' --exclude 'GUIDA.md' --exclude 'supabase' --exclude 'consegna' --exclude '.gitignore' ./ _site/
           touch _site/.nojekyll
           # versione inglese: crea _site/en/index.html dalle traduzioni (i18n/traduzioni.csv); senza traduzioni non crea nulla
           python tools/i18n.py build --out _site
